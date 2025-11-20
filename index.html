@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Atomic Ski Design Concept</title>
     
-    <!-- Removed 'apple-mobile-web-app-status-bar-style' to let theme-color take precedence -->
-    <!-- Initial tint color (Grey to match the 50% white/black blend) -->
+    <!-- Initial theme color -->
     <meta name="theme-color" content="#808080">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,9 +17,12 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000; /* This makes the background black */
-            color: white;
+            /* Removed fixed black background. It is now dynamic via JS. */
+            /* We set a default to prevent flash, but JS will take over. */
+            background-color: #808080; 
+            color: #111; /* Text is now dark for the white theme */
             overflow-x: hidden;
+            transition: background-color 0.3s ease; /* Smooth transition for the body color */
         }
 
         .atomic-header {
@@ -31,7 +33,7 @@
             height: 110px;
             z-index: 50;
             
-            /* 50% White Opacity */
+            /* 50% White Opacity as requested */
             background-color: rgba(255, 255, 255, 0.5); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -121,19 +123,19 @@
         </div>
     </header>
 
-    <!-- Content -->
-    <main class="relative w-full bg-black">
+    <!-- Content Wrapper -->
+    <!-- We force this to be white to separate content from the dynamic body background -->
+    <main class="relative w-full bg-white z-10">
         
         <!-- Hero -->
-        <div class="relative w-full h-[110vh] overflow-hidden">
-            <!-- Added error handler to debug image loading -->
+        <div class="relative w-full h-[110vh] overflow-hidden bg-gray-200">
             <img 
                 id="hero-image"
                 src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2940&auto=format&fit=crop" 
                 alt="Skier"
                 class="absolute top-0 left-0 w-full h-full object-cover grayscale"
                 crossorigin="anonymous"
-                onerror="console.log('Image failed to load - Tinting may default to grey')"
+                onerror="console.log('Image failed to load')"
             />
             
             <div class="absolute top-[45%] left-0 w-full text-center px-6 mix-blend-difference text-white">
@@ -147,36 +149,44 @@
         </div>
 
         <!-- Gallery -->
-        <section class="relative z-10 bg-black">
+        <section class="relative z-10 bg-white pb-20">
             <!-- Status Indicator for Debugging -->
-            <div id="status-bar" class="w-full py-2 text-[10px] text-center text-gray-500 uppercase font-mono">
+            <div id="status-bar" class="w-full py-4 text-[10px] text-center text-gray-400 uppercase font-mono border-b border-gray-100">
                 System Status: <span id="tint-value">Initializing...</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
                 <div class="gallery-item aspect-[4/5]">
                     <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale">
-                    <div class="absolute bottom-6 left-6 text-white">
+                    <div class="absolute bottom-6 left-6 text-white drop-shadow-md">
                         <h3 class="uppercase text-2xl font-bold tracking-tighter">Backcountry</h3>
                     </div>
                 </div>
                 <div class="gallery-item aspect-[4/5]">
                     <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale">
-                    <div class="absolute bottom-6 left-6 text-white">
+                    <div class="absolute bottom-6 left-6 text-white drop-shadow-md">
                         <h3 class="uppercase text-2xl font-bold tracking-tighter">Race</h3>
                     </div>
                 </div>
                 <div class="gallery-item aspect-square md:col-span-2">
                     <img src="https://images.unsplash.com/photo-1486915309851-b962004d7781?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale">
-                    <div class="absolute bottom-6 left-6 text-white">
+                    <div class="absolute bottom-6 left-6 text-white drop-shadow-md">
                         <h3 class="uppercase text-2xl font-bold tracking-tighter">All Mountain</h3>
                     </div>
                 </div>
             </div>
+            
+            <div class="p-10 text-black">
+                <h2 class="text-3xl font-bold uppercase tracking-tight mb-4">Engineered in Austria</h2>
+                <p class="text-gray-600 max-w-md text-sm leading-relaxed">
+                    Every Atomic ski is built with a passion for the sport. 
+                    Our Redster technology brings World Cup speed to your local piste.
+                </p>
+            </div>
         </section>
         
-        <footer class="bg-black text-white py-12 text-center text-xs opacity-50 tracking-widest">
-            ENGINEERED IN AUSTRIA &copy; 2025
+        <footer class="bg-white text-black py-12 text-center text-xs border-t border-gray-200 tracking-widest">
+            &copy; 2025 ATOMIC SKI
         </footer>
     </main>
 
@@ -201,7 +211,6 @@
         let isImageLoaded = false;
         let isTainted = false;
 
-        // Force initial update check
         setTimeout(updateThemeColor, 500);
 
         if (heroImg.complete) {
@@ -210,7 +219,7 @@
             heroImg.onload = initCanvas;
             heroImg.onerror = () => {
                 tintStatus.innerText = "Img Error (Defaulting)";
-                updateThemeColor(); // Will use default
+                updateThemeColor(); 
             };
         }
 
@@ -230,9 +239,7 @@
         }
 
         function getAverageColor(sampleY, sampleHeight) {
-            // If image isn't ready or security blocked it, return Black (0,0,0)
-            // This matches the background of the page
-            if (!isImageLoaded || isTainted) return { r: 0, g: 0, b: 0 };
+            if (!isImageLoaded || isTainted) return { r: 128, g: 128, b: 128 }; // Default grey
 
             const displayHeight = heroImg.getBoundingClientRect().height;
             const scale = canvas.height / displayHeight;
@@ -240,14 +247,13 @@
             const sourceY = Math.max(0, sampleY * scale);
             const sourceH = Math.min(canvas.height - sourceY, sampleHeight * scale);
             
-            if (sourceH <= 0) return { r: 0, g: 0, b: 0 };
+            if (sourceH <= 0) return { r: 255, g: 255, b: 255 }; // Passed image -> White
 
             try {
                 const imageData = ctx.getImageData(0, sourceY, canvas.width, sourceH);
                 const data = imageData.data;
                 let r = 0, g = 0, b = 0, count = 0;
 
-                // Sample pixels (every 50th for speed)
                 for (let i = 0; i < data.length; i += 200) {
                     r += data[i];
                     g += data[i+1];
@@ -255,7 +261,7 @@
                     count++;
                 }
 
-                if(count === 0) return { r:0, g:0, b:0 };
+                if(count === 0) return { r:255, g:255, b:255 };
 
                 return {
                     r: Math.round(r / count),
@@ -264,12 +270,11 @@
                 };
             } catch (e) {
                 isTainted = true;
-                return { r: 0, g: 0, b: 0 };
+                return { r: 128, g: 128, b: 128 };
             }
         }
 
         function blendWithWhite(rgb) {
-            // Blend sampled color with 50% white
             const r = Math.round((rgb.r * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.r * WHITE_OVERLAY_ALPHA));
             const g = Math.round((rgb.g * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.g * WHITE_OVERLAY_ALPHA));
             const b = Math.round((rgb.b * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.b * WHITE_OVERLAY_ALPHA));
@@ -283,23 +288,26 @@
         function updateThemeColor() {
             const scrollY = window.scrollY;
             const heroRect = heroImg.getBoundingClientRect();
-            let finalColorHex = "#808080"; // Default grey (Black blended with 50% white)
+            let finalColorHex = "#ffffff"; 
 
             if (heroRect.bottom > 0) {
-                // We are over the image
+                // Over the image: Calculate tint
                 const avgColor = getAverageColor(scrollY, HEADER_HEIGHT);
                 const blendedColor = blendWithWhite(avgColor);
                 finalColorHex = rgbToHex(blendedColor.r, blendedColor.g, blendedColor.b);
             } else {
-                // We are over the black background
-                // Black background (0,0,0) + 50% White Overlay = Grey (#808080)
-                finalColorHex = "#808080";
+                // Passed the image: White content
+                // 50% White Header over White Content = White (#ffffff)
+                finalColorHex = "#ffffff";
             }
 
-            // Apply the color
+            // 1. Update Meta Tag (For Status Bar)
             if(metaThemeColor.getAttribute('content') !== finalColorHex) {
                 metaThemeColor.setAttribute('content', finalColorHex);
                 tintStatus.innerText = "Active: " + finalColorHex;
+                
+                // 2. Update Body Background (For Overscroll/Bounce)
+                document.body.style.backgroundColor = finalColorHex;
             }
         }
 
