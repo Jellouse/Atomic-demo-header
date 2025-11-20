@@ -2,365 +2,97 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- viewport-fit=cover extends the page into the notch area -->
+    <!-- viewport-fit=cover ensures the color extends behind the notch -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Atomic Ski Design Concept</title>
-    
-    <!-- Initial Theme Color: Starts lighter to match the snowy top -->
-    <meta name="theme-color" content="#e5e5e5">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Rainbow Tint Demo</title>
+    <meta name="theme-color" content="#ff0000">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-
         body {
-            font-family: 'Inter', sans-serif;
-            /* Default background matches the header tint */
-            background-color: #e5e5e5; 
-            color: #111;
-            overflow-x: hidden;
-            /* Smoothly transition the overscroll background color */
-            transition: background-color 0.2s linear;
-        }
-
-        .atomic-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 120px; /* Taller to accommodate the deeper notch */
-            z-index: 50;
-            
-            /* 50% White Opacity */
-            background-color: rgba(255, 255, 255, 0.5); 
-            
-            /* The Frost Effect */
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            
-            /* Refined Trapezoid Notch 
-               Wider base for a more aggressive, structural look.
-            */
-            clip-path: polygon(
-                0 0, 
-                100% 0, 
-                100% 60%,       /* Main bar bottom-right */
-                60% 60%,        /* Start of right slope */
-                55% 100%,       /* Bottom right tip */
-                45% 100%,       /* Bottom left tip */
-                40% 60%,        /* End of left slope */
-                0 60%           /* Main bar bottom-left */
-            );
-            
-            transition: background-color 0.3s ease;
-        }
-
-        .top-bar {
-            height: 40%;
+            margin: 0;
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            color: #111;
-            text-transform: uppercase;
-            padding-bottom: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            /* No transition needed here as we update every frame for smoothness */
+            color: white;
+            text-align: center;
+            padding: 20px;
         }
-
-        .nav-row {
-            position: absolute;
-            top: 25px;
-            width: 100%;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: black;
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            margin: 0 0 1rem 0;
+            letter-spacing: -0.05em;
         }
-
-        .logo-container {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: black;
-            z-index: 60;
-            /* Atomic logo enhancement */
-            filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.5));
+        p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.9;
+            max-width: 320px;
+            line-height: 1.5;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        /* Gallery Styles */
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            background: #000;
-        }
-        .gallery-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1);
-            filter: grayscale(100%);
-        }
-        .gallery-item:hover .gallery-img {
-            transform: scale(1.05);
-            filter: grayscale(0%); /* Reveal color on hover */
+        .pill {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 12px 24px;
+            border-radius: 99px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
         }
     </style>
 </head>
 <body>
-
-    <header class="atomic-header" id="main-header">
-        <div class="top-bar">
-            Free Delivery + 30 Days Return
-        </div>
-        <div class="nav-row">
-            <button class="p-2 opacity-80 hover:opacity-100 transition">
-                <i data-lucide="menu" stroke-width="1.5" size="24"></i>
-            </button>
-            <button class="p-2 opacity-80 hover:opacity-100 transition">
-                <i data-lucide="shopping-bag" stroke-width="1.5" size="24"></i>
-            </button>
-        </div>
-        <div class="logo-container">
-            <!-- Atomic-style Star -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L15 10L23 10L17 15L19 23L12 18L5 23L7 15L1 10L9 10L12 2Z" fill="black"/>
-            </svg>
-        </div>
-    </header>
-
-    <main class="relative w-full bg-white">
-        
-        <!-- Hero Section -->
-        <!-- We use a gradient background placeholder to prevent white flash before image loads -->
-        <div class="relative w-full h-[110vh] bg-gray-200 overflow-hidden">
-            <img 
-                id="hero-image"
-                src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2940&auto=format&fit=crop" 
-                alt="Skier"
-                class="absolute top-0 left-0 w-full h-full object-cover grayscale"
-                crossorigin="anonymous"
-            />
-            
-            <!-- Hero Text -->
-            <div class="absolute top-[45%] left-0 w-full text-center px-6 mix-blend-difference text-white pointer-events-none">
-                <h1 class="text-5xl md:text-8xl font-bold tracking-tighter mb-4 drop-shadow-2xl">
-                    REDSTER
-                </h1>
-                <div class="pointer-events-auto inline-block">
-                    <button class="mt-8 px-10 py-4 border border-white text-white rounded-full font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition duration-300">
-                        Explore Series
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Grid -->
-        <section class="relative z-10 bg-white">
-            
-            <!-- Debug/Status Line (Subtle) -->
-            <div class="w-full py-2 text-[9px] text-center text-gray-300 uppercase font-mono border-b border-gray-100 tracking-widest">
-                Dynamic Tint: <span id="tint-status">Initializing...</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-gray-200">
-                
-                <!-- Large Tile -->
-                <div class="gallery-item aspect-[4/5] md:col-span-1">
-                    <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&w=2000&auto=format&fit=crop" class="gallery-img" alt="Snow Texture">
-                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
-                        <h3 class="uppercase text-3xl font-bold tracking-tighter">Backcountry</h3>
-                        <p class="text-xs tracking-widest mt-1 opacity-90">Bent Chetler Series</p>
-                    </div>
-                </div>
-
-                <!-- Standard Tile -->
-                <div class="gallery-item aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=2000&auto=format&fit=crop" class="gallery-img" alt="Racer">
-                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
-                        <h3 class="uppercase text-3xl font-bold tracking-tighter">Race</h3>
-                        <p class="text-xs tracking-widest mt-1 opacity-90">Redster G9</p>
-                    </div>
-                </div>
-
-                <!-- Wide Tile -->
-                <div class="gallery-item aspect-square md:aspect-[2/1] md:col-span-2">
-                    <img src="https://images.unsplash.com/photo-1518616772834-8f798d734cb3?q=80&w=2000&auto=format&fit=crop" class="gallery-img" alt="Wide Mountain">
-                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
-                        <h3 class="uppercase text-3xl font-bold tracking-tighter">All Mountain</h3>
-                        <p class="text-xs tracking-widest mt-1 opacity-90">Maverick / Maven</p>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div class="py-24 px-8 text-center bg-white text-black">
-                <h2 class="text-2xl font-bold uppercase tracking-tighter mb-6">Engineered in Austria</h2>
-                <p class="text-gray-500 max-w-lg mx-auto text-sm leading-loose">
-                    We represent the sport of skiing. Everything we do is driven by our passion for the sport and the mountains.
-                </p>
-            </div>
-        </section>
-        
-        <footer class="bg-black text-white py-12 text-center text-[10px] uppercase tracking-widest opacity-90">
-            &copy; 2025 Atomic Ski
-        </footer>
-    </main>
-
-    <!-- Hidden Canvas -->
-    <canvas id="analysis-canvas" class="hidden"></canvas>
+    <h1>Tint Test</h1>
+    <p>Look at your top status bar (battery/wifi area). It should be blending seamlessly with this background.</p>
+    
+    <div class="pill" id="color-code">#FF0000</div>
 
     <script>
-        lucide.createIcons();
+        const metaTag = document.querySelector('meta[name="theme-color"]');
+        const colorCode = document.getElementById('color-code');
+        let hue = 0;
 
-        /* --- ROBUST TINTING ENGINE --- */
-
-        const heroImg = document.getElementById('hero-image');
-        const canvas = document.getElementById('analysis-canvas');
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
-        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        const statusLabel = document.getElementById('tint-status');
-        
-        const HEADER_HEIGHT = 120; 
-        const WHITE_OVERLAY_ALPHA = 0.50; // 50% Transparency
-        
-        // State
-        let isImageLoaded = false;
-        let isTainted = false; // Tracks if security blocks us
-
-        // 1. Image Handling
-        if (heroImg.complete) {
-            initCanvas();
-        } else {
-            heroImg.onload = initCanvas;
-            heroImg.onerror = () => {
-                isTainted = true;
-                updateThemeColor();
+        // Helper to convert HSL to Hex
+        function hslToHex(h, s, l) {
+            l /= 100;
+            const a = s * Math.min(l, 1 - l) / 100;
+            const f = n => {
+                const k = (n + h / 30) % 12;
+                const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+                return Math.round(255 * color).toString(16).padStart(2, '0');
             };
+            return `#${f(0)}${f(8)}${f(4)}`;
         }
 
-        function initCanvas() {
-            try {
-                canvas.width = heroImg.naturalWidth || 1000;
-                canvas.height = heroImg.naturalHeight || 1000;
-                
-                // Try to draw image
-                ctx.drawImage(heroImg, 0, 0);
-                
-                // Test read (throws error if blocked)
-                ctx.getImageData(0, 0, 1, 1);
-                
-                isImageLoaded = true;
-                isTainted = false;
-                statusLabel.innerText = "Active (Live Sampling)";
-            } catch(e) {
-                console.log("CORS blocked image reading. Switching to Simulation Mode.");
-                isTainted = true;
-                statusLabel.innerText = "Active (Simulation Mode)";
-            }
-            updateThemeColor();
-        }
-
-        // 2. Color Logic
-        function getAverageColor(scrollY) {
-            // A. LIVE SAMPLING (Best case)
-            if (isImageLoaded && !isTainted) {
-                try {
-                    // Map scroll to image coordinates
-                    const displayHeight = heroImg.getBoundingClientRect().height;
-                    const scale = canvas.height / displayHeight;
-                    const sourceY = Math.max(0, scrollY * scale);
-                    
-                    // Sample a strip
-                    const imageData = ctx.getImageData(0, sourceY, canvas.width, 50); 
-                    const data = imageData.data;
-                    let r=0, g=0, b=0, count=0;
-                    
-                    for (let i = 0; i < data.length; i += 100) {
-                        r += data[i]; g += data[i+1]; b += data[i+2]; count++;
-                    }
-                    return { r: Math.round(r/count), g: Math.round(g/count), b: Math.round(b/count) };
-                } catch(e) {
-                    isTainted = true; // Fallback if random fail
-                }
-            }
-
-            // B. SIMULATION MODE (Fallback)
-            // If we can't read the image, we return a color that MATCHES the image visually
-            // The image is: White Sky (0-30%) -> Darker Mountains (30-60%) -> White Snow (60-100%)
+        function loop() {
+            // Increment Hue (0 to 360)
+            hue = (hue + 0.5) % 360; 
             
-            const screenH = window.innerHeight;
-            const progress = Math.min(1, scrollY / (screenH * 1.1)); // 0 to 1 over Hero section
+            // Saturation 100%, Lightness 60% (Bright, vibrant colors)
+            const hex = hslToHex(hue, 100, 60);
+
+            // 1. Update Meta Tag (The Status Bar)
+            metaTag.setAttribute('content', hex);
             
-            // Gradient Logic for the specific "Redster" image
-            if (progress < 0.2) {
-                // Top: White/Light Grey Sky
-                return { r: 240, g: 240, b: 245 }; 
-            } else if (progress < 0.5) {
-                // Middle: Darker Rocks/Contrast
-                // Interpolate from White to Dark Grey
-                const localP = (progress - 0.2) / 0.3; 
-                const val = 240 - (localP * 100); // Drop to 140
-                return { r: val, g: val, b: val };
-            } else {
-                // Bottom: Bright Snow
-                return { r: 220, g: 220, b: 220 };
-            }
-        }
-
-        function blendWithWhite(rgb) {
-            // Result = (Source * 0.5) + (White * 0.5)
-            const r = Math.round((rgb.r * 0.5) + (255 * 0.5));
-            const g = Math.round((rgb.g * 0.5) + (255 * 0.5));
-            const b = Math.round((rgb.b * 0.5) + (255 * 0.5));
-            return { r, g, b };
-        }
-
-        function rgbToHex(r, g, b) {
-            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-        }
-
-        // 3. Main Update Loop
-        function updateThemeColor() {
-            const scrollY = window.scrollY;
-            const heroH = heroImg.getBoundingClientRect().height;
+            // 2. Update Body Background
+            document.body.style.backgroundColor = hex;
             
-            let finalColor = "#ffffff";
+            // 3. Update Text
+            colorCode.innerText = hex.toUpperCase();
 
-            if (scrollY < heroH - HEADER_HEIGHT) {
-                // We are over the image
-                const rawColor = getAverageColor(scrollY);
-                const blended = blendWithWhite(rawColor);
-                finalColor = rgbToHex(blended.r, blended.g, blended.b);
-            } else {
-                // We are past the image -> Solid White
-                finalColor = "#ffffff";
-            }
-
-            // Apply
-            if (metaThemeColor.getAttribute('content') !== finalColor) {
-                metaThemeColor.setAttribute('content', finalColor);
-                document.body.style.backgroundColor = finalColor;
-            }
+            requestAnimationFrame(loop);
         }
 
-        // 4. Performance Throttle
-        let tick = false;
-        window.addEventListener('scroll', () => {
-            if (!tick) {
-                window.requestAnimationFrame(() => {
-                    updateThemeColor();
-                    tick = false;
-                });
-                tick = true;
-            }
-        });
-
-        window.addEventListener('resize', initCanvas);
-
+        // Start the loop
+        loop();
     </script>
 </body>
 </html>
