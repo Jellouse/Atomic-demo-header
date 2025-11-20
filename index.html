@@ -2,97 +2,383 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- viewport-fit=cover ensures the color extends behind the notch -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Rainbow Tint Demo</title>
-    <meta name="theme-color" content="#ff0000">
+    <title>Atomic Ski Design Concept</title>
+    
+    <!-- Initial Theme Color: Start with a snowy white/light grey -->
+    <meta name="theme-color" content="#e5e7eb">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
         body {
-            margin: 0;
-            height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-color: #e5e7eb; 
+            color: #111;
+            overflow-x: hidden;
+            /* Crucial: Smooth transition for the body background during overscroll */
+            transition: background-color 0.1s linear; 
+        }
+
+        .atomic-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px; 
+            z-index: 50;
+            
+            /* Glass morphism: 40% White overlay */
+            background-color: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            
+            /* The Structural Trapezoid */
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% 60%,       
+                60% 60%,        
+                55% 100%,       
+                45% 100%,       
+                40% 60%,        
+                0 60%           
+            );
+            
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .top-bar {
+            height: 40%;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            /* No transition needed here as we update every frame for smoothness */
-            color: white;
-            text-align: center;
-            padding: 20px;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            color: #111;
+            text-transform: uppercase;
+            padding-bottom: 10px;
         }
-        h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            margin: 0 0 1rem 0;
-            letter-spacing: -0.05em;
+
+        .nav-row {
+            position: absolute;
+            top: 25px;
+            width: 100%;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: black;
         }
-        p {
-            font-size: 1.1rem;
-            font-weight: 500;
-            opacity: 0.9;
-            max-width: 320px;
-            line-height: 1.5;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+        .logo-container {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: black;
+            z-index: 60;
+            filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.8));
         }
-        .pill {
-            margin-top: 30px;
-            background: rgba(0, 0, 0, 0.25);
-            padding: 12px 24px;
-            border-radius: 99px;
+
+        /* Debug Pill: Always visible indicator of the active theme color */
+        #debug-pill {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
             font-family: monospace;
-            font-size: 1.2rem;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 10px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            z-index: 100;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .gallery-item { position: relative; overflow: hidden; background: #000; }
+        .gallery-img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1);
+            filter: grayscale(100%);
+        }
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05); filter: grayscale(0%);
         }
     </style>
 </head>
 <body>
-    <h1>Tint Test</h1>
-    <p>Look at your top status bar (battery/wifi area). It should be blending seamlessly with this background.</p>
-    
-    <div class="pill" id="color-code">#FF0000</div>
+
+    <header class="atomic-header" id="main-header">
+        <div class="top-bar">
+            Free Delivery + 30 Days Return
+        </div>
+        <div class="nav-row">
+            <button class="p-2 opacity-80 hover:opacity-100 transition">
+                <i data-lucide="menu" stroke-width="1.5" size="24"></i>
+            </button>
+            <button class="p-2 opacity-80 hover:opacity-100 transition">
+                <i data-lucide="shopping-bag" stroke-width="1.5" size="24"></i>
+            </button>
+        </div>
+        <div class="logo-container">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L15 10L23 10L17 15L19 23L12 18L5 23L7 15L1 10L9 10L12 2Z" fill="black"/>
+            </svg>
+        </div>
+    </header>
+
+    <main class="relative w-full bg-white" id="main-content">
+        
+        <!-- Hero Section (Dark color area) -->
+        <div id="hero-section" class="relative w-full h-[110vh] bg-gray-300 overflow-hidden">
+            <!-- Display Image -->
+            <img 
+                id="hero-image"
+                src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2940&auto=format&fit=crop" 
+                alt="Skier"
+                class="absolute top-0 left-0 w-full h-full object-cover grayscale"
+                crossorigin="anonymous"
+            />
+            
+            <div class="absolute top-[45%] left-0 w-full text-center px-6 mix-blend-difference text-white pointer-events-none">
+                <h1 class="text-5xl md:text-8xl font-bold tracking-tighter mb-4 drop-shadow-2xl">
+                    REDSTER
+                </h1>
+                <div class="pointer-events-auto inline-block">
+                    <button class="mt-8 px-10 py-4 border border-white text-white rounded-full font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition duration-300">
+                        Explore Series
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Grid (White color area) -->
+        <section class="relative z-10 bg-white" id="product-grid-section">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-gray-200">
+                <div class="gallery-item aspect-[4/5] md:col-span-1">
+                    <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&w=2000&auto=format&fit=crop" class="gallery-img">
+                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
+                        <h3 class="uppercase text-3xl font-bold tracking-tighter">Backcountry</h3>
+                    </div>
+                </div>
+                <div class="gallery-item aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=2000&auto=format&fit=crop" class="gallery-img">
+                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
+                        <h3 class="uppercase text-3xl font-bold tracking-tighter">Race</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="py-24 px-8 text-center bg-white text-black">
+                <h2 class="text-2xl font-bold uppercase tracking-tighter mb-6">Engineered in Austria</h2>
+                <p class="text-gray-500 max-w-lg mx-auto text-sm leading-loose">
+                    We represent the sport of skiing. Everything we do is driven by our passion for the sport and the mountains.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Footer (Black color area) -->
+        <footer class="bg-black text-white py-12 text-center text-[10px] uppercase tracking-widest opacity-90" id="main-footer">
+            &copy; 2025 Atomic Ski
+        </footer>
+    </main>
+
+    <div id="debug-pill">Scroll Engine Active</div>
+
+    <!-- Hidden Canvas for Analysis -->
+    <canvas id="analysis-canvas" class="hidden"></canvas>
 
     <script>
-        const metaTag = document.querySelector('meta[name="theme-color"]');
-        const colorCode = document.getElementById('color-code');
-        let hue = 0;
+        lucide.createIcons();
 
-        // Helper to convert HSL to Hex
-        function hslToHex(h, s, l) {
-            l /= 100;
-            const a = s * Math.min(l, 1 - l) / 100;
-            const f = n => {
-                const k = (n + h / 30) % 12;
-                const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-                return Math.round(255 * color).toString(16).padStart(2, '0');
+        /* --- TRUE DYNAMIC SAMPLING ENGINE --- */
+
+        const canvas = document.getElementById('analysis-canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        const debugPill = document.getElementById('debug-pill');
+        const heroSection = document.getElementById('hero-section');
+        const footer = document.getElementById('main-footer');
+        
+        // Constants
+        const HEADER_HEIGHT = 120; // Height of the area we sample
+        const BG_IMAGE_FACTOR = 0.6; // Image contribution to the blend
+        const WHITE_OVERLAY_FACTOR = 0.4; // Header's 40% White overlay contribution
+        const WHITE_RGB = 255; 
+
+        // Dynamic Image Element for Analysis
+        const analysisImg = new Image();
+        analysisImg.crossOrigin = "Anonymous";
+        analysisImg.src = heroSection.querySelector('img').src; 
+
+        let isReady = false; // Flag for successful image load/CORS check
+        let isImageLoaded = false;
+
+        // --- Utility Functions ---
+
+        function rgbToHex(r, g, b) {
+            // Converts RGB values to a hex string
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
+
+        // Blends the base color with the 40% white overlay from the header
+        function blendColor(r, g, b) {
+            return {
+                r: Math.round((r * BG_IMAGE_FACTOR) + (WHITE_RGB * WHITE_OVERLAY_FACTOR)),
+                g: Math.round((g * BG_IMAGE_FACTOR) + (WHITE_RGB * WHITE_OVERLAY_FACTOR)),
+                b: Math.round((b * BG_IMAGE_FACTOR) + (WHITE_RGB * WHITE_OVERLAY_FACTOR)),
             };
-            return `#${f(0)}${f(8)}${f(4)}`;
         }
 
-        function loop() {
-            // Increment Hue (0 to 360)
-            hue = (hue + 0.5) % 360; 
-            
-            // Saturation 100%, Lightness 60% (Bright, vibrant colors)
-            const hex = hslToHex(hue, 100, 60);
+        // --- Core Engine Logic ---
 
-            // 1. Update Meta Tag (The Status Bar)
-            metaTag.setAttribute('content', hex);
-            
-            // 2. Update Body Background
-            document.body.style.backgroundColor = hex;
-            
-            // 3. Update Text
-            colorCode.innerText = hex.toUpperCase();
+        // Called on image load/CORS success
+        analysisImg.onload = function() {
+            canvas.width = analysisImg.naturalWidth;
+            canvas.height = analysisImg.naturalHeight;
+            ctx.drawImage(analysisImg, 0, 0);
+            isReady = true;
+            isImageLoaded = true;
+            debugPill.innerText = "ENGINE ACTIVE (Live)";
+            debugPill.style.color = "#00ff00";
+            updateTint();
+        };
 
-            requestAnimationFrame(loop);
+        // Called on image load/CORS failure
+        analysisImg.onerror = function() {
+            isReady = true; // Still ready to execute the fallback logic
+            isImageLoaded = false;
+            debugPill.innerText = "CORS ERROR (Fallback)";
+            debugPill.style.color = "#ffdd00";
+            updateTint();
         }
 
-        // Start the loop
-        loop();
+
+        // Fallback colors for areas where sampling is impossible/off-screen
+        const FALLBACK_WHITE = blendColor(255, 255, 255); // White section blend
+        const FALLBACK_DARK = blendColor(0, 0, 0);       // Black footer blend
+        const FALLBACK_LIGHT = blendColor(229, 231, 235); // Initial sky/light grey blend
+
+
+        function getVisibleContentColor() {
+            const scrollY = window.scrollY;
+            const heroRect = heroSection.getBoundingClientRect();
+            const footerRect = footer.getBoundingClientRect();
+            
+            // 1. Over the Hero Image Section (ScrollY < Hero Height)
+            if (scrollY < heroSection.offsetHeight) {
+                
+                // If the image is loaded and we are over it, try to sample
+                if (isImageLoaded) {
+                    const displayRect = heroSection.getBoundingClientRect();
+                    const scale = canvas.height / displayRect.height;
+                    
+                    // Y position on the high-res canvas (source image)
+                    const sourceY = Math.max(0, scrollY * scale);
+                    const sourceH = Math.min(canvas.height - sourceY, HEADER_HEIGHT * scale);
+
+                    if (sourceH > 0) {
+                        try {
+                            const imageData = ctx.getImageData(0, sourceY, canvas.width, sourceH);
+                            const data = imageData.data;
+                            let r=0, g=0, b=0, count=0;
+
+                            // Sample every 100th pixel for performance
+                            for (let i = 0; i < data.length; i += 400) { 
+                                r += data[i];
+                                g += data[i+1];
+                                b += data[i+2];
+                                count++;
+                            }
+
+                            if (count > 0) {
+                                const avgR = Math.round(r / count);
+                                const avgG = Math.round(g / count);
+                                const avgB = Math.round(b / count);
+                                
+                                return blendColor(avgR, avgG, avgB);
+                            }
+                        } catch(e) {
+                            // If sampling fails mid-scroll (very rare, but safe)
+                            console.error("Sampling error:", e);
+                        }
+                    }
+                }
+                
+                // Fallback for Hero Section (Image failed or sampled outside bounds)
+                // Use a simple blend between light and dark based on scroll progress
+                const progress = scrollY / heroSection.offsetHeight;
+                if (progress < 0.2) return FALLBACK_LIGHT; // Top 20% (Sky)
+                return FALLBACK_DARK; // Rest (Mountain/Dark part)
+
+            } 
+            
+            // 2. Over the White Content Section (Hero is off-screen, Footer not visible at top)
+            else if (scrollY < footer.offsetTop - HEADER_HEIGHT) {
+                return FALLBACK_WHITE;
+            }
+            
+            // 3. Over the Footer Section (Footer is scrolling up)
+            else {
+                // Determine normalized progress from the content (100% white) to the footer (100% black)
+                const transitionStart = footer.offsetTop - HEADER_HEIGHT;
+                const transitionRange = footer.offsetHeight; // Use footer height as range for simplicity
+                
+                const progress = Math.min(1, (scrollY - transitionStart) / transitionRange);
+                
+                // Interpolate from BLEND_WHITE to BLEND_DARK
+                const r = Math.round(FALLBACK_WHITE.r + (FALLBACK_DARK.r - FALLBACK_WHITE.r) * progress);
+                const g = Math.round(FALLBACK_WHITE.g + (FALLBACK_DARK.g - FALLBACK_WHITE.g) * progress);
+                const b = Math.round(FALLBACK_WHITE.b + (FALLBACK_DARK.b - FALLBACK_WHITE.b) * progress);
+                
+                return { r, g, b };
+            }
+        }
+
+
+        function updateTint() {
+            if (!isReady && !isImageLoaded) {
+                 // Still waiting for image load/error to set isReady flag
+                 return;
+            }
+
+            const targetRGB = getVisibleContentColor();
+            const hex = rgbToHex(targetRGB.r, targetRGB.g, targetRGB.b);
+
+            // Apply Changes to the Meta Tag and Body
+            if (metaThemeColor.getAttribute('content') !== hex) {
+                metaThemeColor.setAttribute('content', hex);
+                document.body.style.backgroundColor = hex;
+                debugPill.innerText = isImageLoaded 
+                    ? `LIVE: ${hex.toUpperCase()}` 
+                    : `FALLBACK: ${hex.toUpperCase()}`;
+            }
+        }
+
+        // --- Event Listeners ---
+        
+        // Scroll Loop for optimal performance
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateTint();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Run once on load to set initial state (if image is already loaded)
+        if (analysisImg.complete) {
+            analysisImg.onload();
+        }
+
     </script>
 </body>
 </html>
