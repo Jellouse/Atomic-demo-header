@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- viewport-fit=cover is essential for the content to go under the notch -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Atomic Ski Design Concept</title>
-    <!-- Initial theme color (will be updated by JS) -->
-    <meta name="theme-color" content="#cccccc">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Removed 'apple-mobile-web-app-status-bar-style' to let theme-color take precedence -->
+    <!-- Initial tint color (Grey to match the 50% white/black blend) -->
+    <meta name="theme-color" content="#808080">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -15,32 +18,25 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000;
+            background-color: #000; /* This makes the background black */
             color: white;
             overflow-x: hidden;
         }
 
-        /* The Header Shape 
-           Updated to a Trapezoid Notch
-        */
         .atomic-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: 110px; /* Slightly taller for the deep notch */
+            height: 110px;
             z-index: 50;
             
-            /* Requested 50% White Opacity */
+            /* 50% White Opacity */
             background-color: rgba(255, 255, 255, 0.5); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             
-            /* Trapezoid Notch Logic:
-               Main bar ends at 65% height.
-               Trapezoid extends from 42% width to 58% width at the top of the notch,
-               narrowing to 46% width and 54% width at the bottom (100% height).
-            */
+            /* Trapezoid Notch */
             clip-path: polygon(
                 0 0, 
                 100% 0, 
@@ -56,7 +52,7 @@
         }
 
         .top-bar {
-            height: 40%; /* Occupies top part of the 65% main bar */
+            height: 40%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -70,7 +66,7 @@
 
         .nav-row {
             position: absolute;
-            top: 25px; /* Adjusted for new height */
+            top: 25px;
             width: 100%;
             padding: 0 2rem;
             display: flex;
@@ -81,14 +77,13 @@
 
         .logo-container {
             position: absolute;
-            bottom: 12px; /* Positioned inside the trapezoid tip */
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
             color: black;
             z-index: 60;
         }
 
-        /* Image Grid Styles */
         .gallery-img {
             width: 100%;
             height: 100%;
@@ -106,24 +101,19 @@
 </head>
 <body>
 
-    <!-- The Dynamic Header -->
+    <!-- Header -->
     <header class="atomic-header" id="main-header">
         <div class="top-bar">
             Free Delivery + 30 Days Return
         </div>
         <div class="nav-row">
-            <!-- Hamburger Menu -->
             <button class="p-2 hover:opacity-60 transition">
                 <i data-lucide="menu" stroke-width="1.5" size="24"></i>
             </button>
-            
-            <!-- Bag Icon -->
             <button class="p-2 hover:opacity-60 transition">
                 <i data-lucide="shopping-bag" stroke-width="1.5" size="24"></i>
             </button>
         </div>
-        
-        <!-- Center Logo -->
         <div class="logo-container">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2L15 10L23 10L17 15L19 23L12 18L5 23L7 15L1 10L9 10L12 2Z" fill="black"/>
@@ -131,17 +121,19 @@
         </div>
     </header>
 
-    <!-- Main Content Area -->
+    <!-- Content -->
     <main class="relative w-full bg-black">
         
-        <!-- Hero Section -->
+        <!-- Hero -->
         <div class="relative w-full h-[110vh] overflow-hidden">
+            <!-- Added error handler to debug image loading -->
             <img 
                 id="hero-image"
                 src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2940&auto=format&fit=crop" 
-                alt="Skier in black and white"
+                alt="Skier"
                 class="absolute top-0 left-0 w-full h-full object-cover grayscale"
                 crossorigin="anonymous"
+                onerror="console.log('Image failed to load - Tinting may default to grey')"
             />
             
             <div class="absolute top-[45%] left-0 w-full text-center px-6 mix-blend-difference text-white">
@@ -154,67 +146,38 @@
             </div>
         </div>
 
-        <!-- Image Grid (Replaced random content) -->
+        <!-- Gallery -->
         <section class="relative z-10 bg-black">
+            <!-- Status Indicator for Debugging -->
+            <div id="status-bar" class="w-full py-2 text-[10px] text-center text-gray-500 uppercase font-mono">
+                System Status: <span id="tint-value">Initializing...</span>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
-                
-                <!-- Item 1 -->
                 <div class="gallery-item aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Ski Texture">
+                    <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale">
                     <div class="absolute bottom-6 left-6 text-white">
                         <h3 class="uppercase text-2xl font-bold tracking-tighter">Backcountry</h3>
-                        <p class="text-xs tracking-widest mt-1 opacity-80">Maverick Series</p>
                     </div>
                 </div>
-
-                <!-- Item 2 -->
                 <div class="gallery-item aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Ski Jump">
+                    <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale">
                     <div class="absolute bottom-6 left-6 text-white">
                         <h3 class="uppercase text-2xl font-bold tracking-tighter">Race</h3>
-                        <p class="text-xs tracking-widest mt-1 opacity-80">Redster G9</p>
                     </div>
                 </div>
-
-                <!-- Item 3 -->
                 <div class="gallery-item aspect-square md:col-span-2">
-                    <img src="https://images.unsplash.com/photo-1486915309851-b962004d7781?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Mountain Peak">
+                    <img src="https://images.unsplash.com/photo-1486915309851-b962004d7781?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale">
                     <div class="absolute bottom-6 left-6 text-white">
                         <h3 class="uppercase text-2xl font-bold tracking-tighter">All Mountain</h3>
-                        <p class="text-xs tracking-widest mt-1 opacity-80">Bent Chetler</p>
                     </div>
                 </div>
-
-                <!-- Item 4 -->
-                <div class="gallery-item aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1565992441121-4367c2967103?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Ski Gear">
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="uppercase text-2xl font-bold tracking-tighter">Protection</h3>
-                        <p class="text-xs tracking-widest mt-1 opacity-80">Helmets & Goggles</p>
-                    </div>
-                </div>
-
-                 <!-- Item 5 -->
-                 <div class="gallery-item aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Powder Turn">
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="uppercase text-2xl font-bold tracking-tighter">Touring</h3>
-                        <p class="text-xs tracking-widest mt-1 opacity-80">Backland</p>
-                    </div>
-                </div>
-
-            </div>
-            
-            <!-- Debug Info (Hidden visually but kept for logic) -->
-            <div class="p-6 text-xs text-gray-700 font-mono opacity-0">
-                Tint: <span id="debug-hex">#CCCCCC</span>
             </div>
         </section>
         
         <footer class="bg-black text-white py-12 text-center text-xs opacity-50 tracking-widest">
             ENGINEERED IN AUSTRIA &copy; 2025
         </footer>
-
     </main>
 
     <!-- Hidden Canvas -->
@@ -229,31 +192,47 @@
         const canvas = document.getElementById('analysis-canvas');
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        const debugHex = document.getElementById('debug-hex');
+        const tintStatus = document.getElementById('tint-value');
         
-        // Configuration Updated
         const HEADER_HEIGHT = 110; 
-        const WHITE_OVERLAY_ALPHA = 0.50; // Updated to 50%
+        const WHITE_OVERLAY_ALPHA = 0.50;
         const WHITE_RGB = { r: 255, g: 255, b: 255 };
 
         let isImageLoaded = false;
+        let isTainted = false;
+
+        // Force initial update check
+        setTimeout(updateThemeColor, 500);
 
         if (heroImg.complete) {
             initCanvas();
         } else {
             heroImg.onload = initCanvas;
+            heroImg.onerror = () => {
+                tintStatus.innerText = "Img Error (Defaulting)";
+                updateThemeColor(); // Will use default
+            };
         }
 
         function initCanvas() {
-            canvas.width = heroImg.naturalWidth;
-            canvas.height = heroImg.naturalHeight;
-            ctx.drawImage(heroImg, 0, 0);
-            isImageLoaded = true;
-            updateThemeColor();
+            try {
+                canvas.width = heroImg.naturalWidth;
+                canvas.height = heroImg.naturalHeight;
+                ctx.drawImage(heroImg, 0, 0);
+                isImageLoaded = true;
+                tintStatus.innerText = "Canvas Ready";
+                updateThemeColor();
+            } catch(e) {
+                console.error("Canvas Tainted", e);
+                isTainted = true;
+                tintStatus.innerText = "Security Block (Defaulting)";
+            }
         }
 
         function getAverageColor(sampleY, sampleHeight) {
-            if (!isImageLoaded) return { r: 0, g: 0, b: 0 };
+            // If image isn't ready or security blocked it, return Black (0,0,0)
+            // This matches the background of the page
+            if (!isImageLoaded || isTainted) return { r: 0, g: 0, b: 0 };
 
             const displayHeight = heroImg.getBoundingClientRect().height;
             const scale = canvas.height / displayHeight;
@@ -268,12 +247,15 @@
                 const data = imageData.data;
                 let r = 0, g = 0, b = 0, count = 0;
 
-                for (let i = 0; i < data.length; i += 40) {
+                // Sample pixels (every 50th for speed)
+                for (let i = 0; i < data.length; i += 200) {
                     r += data[i];
                     g += data[i+1];
                     b += data[i+2];
                     count++;
                 }
+
+                if(count === 0) return { r:0, g:0, b:0 };
 
                 return {
                     r: Math.round(r / count),
@@ -281,11 +263,13 @@
                     b: Math.round(b / count)
                 };
             } catch (e) {
+                isTainted = true;
                 return { r: 0, g: 0, b: 0 };
             }
         }
 
         function blendWithWhite(rgb) {
+            // Blend sampled color with 50% white
             const r = Math.round((rgb.r * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.r * WHITE_OVERLAY_ALPHA));
             const g = Math.round((rgb.g * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.g * WHITE_OVERLAY_ALPHA));
             const b = Math.round((rgb.b * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.b * WHITE_OVERLAY_ALPHA));
@@ -299,28 +283,24 @@
         function updateThemeColor() {
             const scrollY = window.scrollY;
             const heroRect = heroImg.getBoundingClientRect();
-            let finalColorHex = "#ffffff"; 
+            let finalColorHex = "#808080"; // Default grey (Black blended with 50% white)
 
-            // Tinting logic mainly applies when over the Hero image
             if (heroRect.bottom > 0) {
+                // We are over the image
                 const avgColor = getAverageColor(scrollY, HEADER_HEIGHT);
                 const blendedColor = blendWithWhite(avgColor);
                 finalColorHex = rgbToHex(blendedColor.r, blendedColor.g, blendedColor.b);
             } else {
-                // When over the black gallery content:
-                // Background is Black (0,0,0). 
-                // Overlay is White 50%. 
-                // Result = 50% Grey (#808080).
-                // We can hardcode this for performance or calculate it.
-                // Since the gallery images are dynamic, let's just default to a dark grey for simplicity
-                // or keep it white if that's the desired "nav" look. 
-                // Given the "Atomic" look, usually UI stays consistent.
-                // Let's blend Black with 50% White -> #808080
+                // We are over the black background
+                // Black background (0,0,0) + 50% White Overlay = Grey (#808080)
                 finalColorHex = "#808080";
             }
 
-            metaThemeColor.setAttribute('content', finalColorHex);
-            if(debugHex) debugHex.innerText = finalColorHex;
+            // Apply the color
+            if(metaThemeColor.getAttribute('content') !== finalColorHex) {
+                metaThemeColor.setAttribute('content', finalColorHex);
+                tintStatus.innerText = "Active: " + finalColorHex;
+            }
         }
 
         function throttle(func, limit) {
