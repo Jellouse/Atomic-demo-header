@@ -1,379 +1,343 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.3">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #4689cc; -webkit-text-stroke: #4689cc}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #8cd3fe; -webkit-text-stroke: #8cd3fe}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #c27e65; -webkit-text-stroke: #c27e65}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6d7378; -webkit-text-stroke: #6d7378}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #71c083; -webkit-text-stroke: #71c083}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca; min-height: 16.0px}
-    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #36c0a0; -webkit-text-stroke: #36c0a0}
-    span.s1 {font-kerning: none; background-color: #171818}
-    span.s2 {font-kerning: none; color: #8cd3fe; background-color: #171818; -webkit-text-stroke: 0px #8cd3fe}
-    span.s3 {font-kerning: none; color: #6d6d6d; background-color: #171818; -webkit-text-stroke: 0px #6d6d6d}
-    span.s4 {font-kerning: none; color: #cacaca; background-color: #171818; -webkit-text-stroke: 0px #cacaca}
-    span.s5 {font-kerning: none; color: #c27e65; background-color: #171818; -webkit-text-stroke: 0px #c27e65}
-    span.s6 {font-kerning: none; color: #4689cc; background-color: #171818; -webkit-text-stroke: 0px #4689cc}
-    span.s7 {font-kerning: none; color: #b76ff7; background-color: #171818; -webkit-text-stroke: 0px #b76ff7}
-    span.s8 {font-kerning: none; color: #d4d4d4; background-color: #171818; -webkit-text-stroke: 0px #d4d4d4}
-    span.s9 {font-kerning: none}
-    span.s10 {font-kerning: none; color: #71c083; background-color: #171818; -webkit-text-stroke: 0px #71c083}
-    span.s11 {font-kerning: none; color: #a7c598; background-color: #171818; -webkit-text-stroke: 0px #a7c598}
-    span.s12 {font-kerning: none; color: #6d7378; background-color: #171818; -webkit-text-stroke: 0px #6d7378}
-    span.s13 {font-kerning: none; color: #f67c30; background-color: #171818; -webkit-text-stroke: 0px #f67c30}
-    span.s14 {font-kerning: none; color: #36c0a0; background-color: #171818; -webkit-text-stroke: 0px #36c0a0}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Atomic Ski Design Concept</title>
+    <!-- Initial theme color (will be updated by JS) -->
+    <meta name="theme-color" content="#cccccc">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* The Header Shape 
+           Updated to a Trapezoid Notch
+        */
+        .atomic-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 110px; /* Slightly taller for the deep notch */
+            z-index: 50;
+            
+            /* Requested 50% White Opacity */
+            background-color: rgba(255, 255, 255, 0.5); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            
+            /* Trapezoid Notch Logic:
+               Main bar ends at 65% height.
+               Trapezoid extends from 42% width to 58% width at the top of the notch,
+               narrowing to 46% width and 54% width at the bottom (100% height).
+            */
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% 65%, 
+                58% 65%, 
+                54% 100%, 
+                46% 100%, 
+                42% 65%, 
+                0 65%
+            );
+            
+            transition: background-color 0.3s ease;
+        }
+
+        .top-bar {
+            height: 40%; /* Occupies top part of the 65% main bar */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            color: #111;
+            text-transform: uppercase;
+            padding-bottom: 5px;
+        }
+
+        .nav-row {
+            position: absolute;
+            top: 25px; /* Adjusted for new height */
+            width: 100%;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: black;
+        }
+
+        .logo-container {
+            position: absolute;
+            bottom: 12px; /* Positioned inside the trapezoid tip */
+            left: 50%;
+            transform: translateX(-50%);
+            color: black;
+            z-index: 60;
+        }
+
+        /* Image Grid Styles */
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE</span><span class="s2"> html</span><span class="s1">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;</span><span class="s1">html</span><span class="s4"> </span><span class="s2">lang</span><span class="s3">=</span><span class="s5">"en"</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s1">charset</span><span class="s3">=</span><span class="s5">"UTF-8"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"viewport"</span><span class="s4"> </span><span class="s2">content</span><span class="s3">=</span><span class="s1">"width=device-width, initial-scale=1.0, viewport-fit=cover"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">title</span><span class="s3">&gt;</span><span class="s1">Atomic Ski Design Concept</span><span class="s3">&lt;/</span><span class="s6">title</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Initial theme color (will be updated by JS) --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"theme-color"</span><span class="s4"> </span><span class="s2">content</span><span class="s3">=</span><span class="s1">"#cccccc"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"apple-mobile-web-app-status-bar-style"</span><span class="s4"> </span><span class="s2">content</span><span class="s3">=</span><span class="s1">"black-translucent"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://cdn.tailwindcss.com"</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/lucide@latest"</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">/* Custom Fonts */</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s7">@import</span><span class="s4"> </span><span class="s5">url</span><span class="s8">(</span><span class="s1">'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap'</span><span class="s8">);</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">body</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-family:</span><span class="s1"> </span><span class="s10">'Inter'</span><span class="s8">,</span><span class="s1"> </span><span class="s5">sans-serif</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background-color:</span><span class="s1"> #000</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color:</span><span class="s1"> </span><span class="s5">white</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">overflow-x:</span><span class="s1"> </span><span class="s5">hidden</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">/* The Header Shape<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">           </span>Updated to a Trapezoid Notch</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>*/</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.atomic-header</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">position:</span><span class="s1"> </span><span class="s5">fixed</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">top:</span><span class="s1"> </span><span class="s11">0</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">left:</span><span class="s1"> </span><span class="s11">0</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">right:</span><span class="s1"> </span><span class="s11">0</span><span class="s8">;</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">height:</span><span class="s4"> </span><span class="s11">110px</span><span class="s8">;</span><span class="s4"> </span><span class="s1">/* Slightly taller for the deep notch */</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">z-index:</span><span class="s1"> </span><span class="s11">50</span><span class="s8">;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">/* Requested 50% White Opacity */</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background-color:</span><span class="s1"> </span><span class="s5">rgba(</span><span class="s11">255</span><span class="s8">,</span><span class="s1"> </span><span class="s11">255</span><span class="s8">,</span><span class="s1"> </span><span class="s11">255</span><span class="s8">,</span><span class="s1"> </span><span class="s11">0.5</span><span class="s5">)</span><span class="s8">;</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">backdrop-filter:</span><span class="s4"> </span><span class="s5">blur(</span><span class="s11">20px</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">-webkit-backdrop-filter:</span><span class="s4"> </span><span class="s5">blur(</span><span class="s11">20px</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">/* Trapezoid Notch Logic:</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">               </span>Main bar ends at 65% height.</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">               </span>Trapezoid extends from 42% width to 58% width at the top of the notch,</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">               </span>narrowing to 46% width and 54% width at the bottom (100% height).</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>*/</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">clip-path:</span><span class="s1"> </span><span class="s5">polygon(</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">0</span><span class="s1"> </span><span class="s11">0</span><span class="s8">,</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">100%</span><span class="s1"> </span><span class="s11">0</span><span class="s8">,</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">100%</span><span class="s1"> </span><span class="s11">65%</span><span class="s8">,</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">58%</span><span class="s1"> </span><span class="s11">65%</span><span class="s8">,</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">54%</span><span class="s1"> </span><span class="s11">100%</span><span class="s8">,</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">46%</span><span class="s1"> </span><span class="s11">100%</span><span class="s8">,</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">42%</span><span class="s1"> </span><span class="s11">65%</span><span class="s8">,</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">0</span><span class="s1"> </span><span class="s11">65%</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">transition:</span><span class="s4"> </span><span class="s1">background-color</span><span class="s4"> </span><span class="s11">0.3s</span><span class="s4"> </span><span class="s1">ease</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">.top-bar</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">height:</span><span class="s4"> </span><span class="s11">40%</span><span class="s8">;</span><span class="s4"> </span><span class="s1">/* Occupies top part of the 65% main bar */</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display:</span><span class="s1"> </span><span class="s5">flex</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">align-items:</span><span class="s1"> </span><span class="s5">center</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">justify-content:</span><span class="s4"> </span><span class="s5">center</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size:</span><span class="s1"> </span><span class="s11">0.6rem</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">letter-spacing:</span><span class="s4"> </span><span class="s11">0.1em</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-weight:</span><span class="s1"> </span><span class="s11">600</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color:</span><span class="s1"> #111</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">text-transform:</span><span class="s4"> </span><span class="s5">uppercase</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">padding-bottom:</span><span class="s4"> </span><span class="s11">5px</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">.nav-row</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">position:</span><span class="s1"> </span><span class="s5">absolute</span><span class="s8">;</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">top:</span><span class="s4"> </span><span class="s11">25px</span><span class="s8">;</span><span class="s4"> </span><span class="s1">/* Adjusted for new height */</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">width:</span><span class="s1"> </span><span class="s11">100%</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding:</span><span class="s1"> </span><span class="s11">0</span><span class="s1"> </span><span class="s11">2rem</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display:</span><span class="s1"> </span><span class="s5">flex</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">justify-content:</span><span class="s4"> </span><span class="s5">space-between</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">align-items:</span><span class="s1"> </span><span class="s5">center</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color:</span><span class="s1"> </span><span class="s5">black</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.logo-container</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">position:</span><span class="s1"> </span><span class="s5">absolute</span><span class="s8">;</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">bottom:</span><span class="s4"> </span><span class="s11">12px</span><span class="s8">;</span><span class="s4"> </span><span class="s1">/* Positioned inside the trapezoid tip */</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">left:</span><span class="s1"> </span><span class="s11">50%</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transform:</span><span class="s1"> </span><span class="s5">translateX(</span><span class="s11">-50%</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color:</span><span class="s1"> </span><span class="s5">black</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">z-index:</span><span class="s1"> </span><span class="s11">60</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">/* Image Grid Styles */</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.gallery-img</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">width:</span><span class="s1"> </span><span class="s11">100%</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">height:</span><span class="s1"> </span><span class="s11">100%</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">object-fit:</span><span class="s1"> </span><span class="s5">cover</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition:</span><span class="s1"> </span><span class="s5">transform</span><span class="s1"> </span><span class="s11">0.5s</span><span class="s1"> </span><span class="s5">ease</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.gallery-item:hover</span><span class="s4"> </span><span class="s1">.gallery-img</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transform:</span><span class="s1"> </span><span class="s5">scale(</span><span class="s11">1.05</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.gallery-item</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">overflow:</span><span class="s1"> </span><span class="s5">hidden</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">position:</span><span class="s1"> </span><span class="s5">relative</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;/</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;</span><span class="s1">body</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- The Dynamic Header --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">header</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"atomic-header"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"main-header"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"top-bar"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>Free Delivery + 30 Days Return</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"nav-row"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Hamburger Menu --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"p-2 hover:opacity-60 transition"</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s1">data-lucide</span><span class="s3">=</span><span class="s5">"menu"</span><span class="s4"> </span><span class="s1">stroke-width</span><span class="s3">=</span><span class="s5">"1.5"</span><span class="s4"> </span><span class="s1">size</span><span class="s3">=</span><span class="s5">"24"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Bag Icon --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"p-2 hover:opacity-60 transition"</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s1">data-lucide</span><span class="s3">=</span><span class="s5">"shopping-bag"</span><span class="s4"> </span><span class="s1">stroke-width</span><span class="s3">=</span><span class="s5">"1.5"</span><span class="s4"> </span><span class="s1">size</span><span class="s3">=</span><span class="s5">"24"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">&lt;!-- Center Logo --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"logo-container"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">svg</span><span class="s4"> </span><span class="s2">width</span><span class="s3">=</span><span class="s1">"24"</span><span class="s4"> </span><span class="s2">height</span><span class="s3">=</span><span class="s1">"24"</span><span class="s4"> </span><span class="s2">viewBox</span><span class="s3">=</span><span class="s1">"0 0 24 24"</span><span class="s4"> </span><span class="s2">fill</span><span class="s3">=</span><span class="s1">"currentColor"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">path</span><span class="s4"> </span><span class="s2">d</span><span class="s3">=</span><span class="s1">"M12 2L15 10L23 10L17 15L19 23L12 18L5 23L7 15L1 10L9 10L12 2Z"</span><span class="s4"> </span><span class="s2">fill</span><span class="s3">=</span><span class="s1">"black"</span><span class="s3">/&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">svg</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">header</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Main Content Area --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">main</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"relative w-full bg-black"</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">&lt;!-- Hero Section --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"relative w-full h-[110vh] overflow-hidden"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">img</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s2">id</span><span class="s3">=</span><span class="s5">"hero-image"</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&amp;w=2940&amp;auto=format&amp;fit=crop"</span><span class="s4"><span class="Apple-converted-space"> </span></span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s2">alt</span><span class="s3">=</span><span class="s1">"Skier in black and white"</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute top-0 left-0 w-full h-full object-cover grayscale"</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s2">crossorigin</span><span class="s3">=</span><span class="s5">"anonymous"</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">/&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute top-[45%] left-0 w-full text-center px-6 mix-blend-difference text-white"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">h1</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-5xl md:text-7xl font-bold tracking-tighter mb-4 drop-shadow-xl"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>REDSTER</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">h1</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"mt-8 px-10 py-3 border border-white text-white rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white hover:text-black transition duration-300"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>Explore</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">&lt;!-- Image Grid (Replaced random content) --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">section</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"relative z-10 bg-black"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"grid grid-cols-1 md:grid-cols-2 gap-1"</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s12">&lt;!-- Item 1 --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-item aspect-[4/5]"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">img</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&amp;w=2000&amp;auto=format&amp;fit=crop"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-img grayscale"</span><span class="s4"> </span><span class="s2">alt</span><span class="s3">=</span><span class="s1">"Ski Texture"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute bottom-6 left-6 text-white"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"uppercase text-2xl font-bold tracking-tighter"</span><span class="s3">&gt;</span><span class="s4">Backcountry</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xs tracking-widest mt-1 opacity-80"</span><span class="s3">&gt;</span><span class="s4">Maverick Series</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s12">&lt;!-- Item 2 --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-item aspect-[4/5]"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">img</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&amp;w=2000&amp;auto=format&amp;fit=crop"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-img grayscale"</span><span class="s4"> </span><span class="s2">alt</span><span class="s3">=</span><span class="s1">"Ski Jump"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute bottom-6 left-6 text-white"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"uppercase text-2xl font-bold tracking-tighter"</span><span class="s3">&gt;</span><span class="s4">Race</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xs tracking-widest mt-1 opacity-80"</span><span class="s3">&gt;</span><span class="s4">Redster G9</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s12">&lt;!-- Item 3 --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-item aspect-square md:col-span-2"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">img</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://images.unsplash.com/photo-1486915309851-b962004d7781?q=80&amp;w=2000&amp;auto=format&amp;fit=crop"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-img grayscale"</span><span class="s4"> </span><span class="s2">alt</span><span class="s3">=</span><span class="s1">"Mountain Peak"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute bottom-6 left-6 text-white"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"uppercase text-2xl font-bold tracking-tighter"</span><span class="s3">&gt;</span><span class="s4">All Mountain</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xs tracking-widest mt-1 opacity-80"</span><span class="s3">&gt;</span><span class="s4">Bent Chetler</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s12">&lt;!-- Item 4 --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-item aspect-[4/5]"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">img</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://images.unsplash.com/photo-1565992441121-4367c2967103?q=80&amp;w=2000&amp;auto=format&amp;fit=crop"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-img grayscale"</span><span class="s4"> </span><span class="s2">alt</span><span class="s3">=</span><span class="s1">"Ski Gear"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute bottom-6 left-6 text-white"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"uppercase text-2xl font-bold tracking-tighter"</span><span class="s3">&gt;</span><span class="s4">Protection</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-xs tracking-widest mt-1 opacity-80"</span><span class="s3">&gt;</span><span class="s1">Helmets &amp; Goggles</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                 </span></span><span class="s12">&lt;!-- Item 5 --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                 </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-item aspect-[4/5]"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">img</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&amp;w=2000&amp;auto=format&amp;fit=crop"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"gallery-img grayscale"</span><span class="s4"> </span><span class="s2">alt</span><span class="s3">=</span><span class="s1">"Powder Turn"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute bottom-6 left-6 text-white"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"uppercase text-2xl font-bold tracking-tighter"</span><span class="s3">&gt;</span><span class="s4">Touring</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xs tracking-widest mt-1 opacity-80"</span><span class="s3">&gt;</span><span class="s4">Backland</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Debug Info (Hidden visually but kept for logic) --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"p-6 text-xs text-gray-700 font-mono opacity-0"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>Tint: </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s1"> </span><span class="s2">id</span><span class="s3">=</span><span class="s5">"debug-hex"</span><span class="s3">&gt;</span><span class="s1">#CCCCCC</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">section</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">footer</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-black text-white py-12 text-center text-xs opacity-50 tracking-widest"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>ENGINEERED IN AUSTRIA &amp;copy; 2025</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">footer</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s6">main</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Hidden Canvas --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">canvas</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"analysis-canvas"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"hidden"</span><span class="s3">&gt;&lt;/</span><span class="s6">canvas</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>lucide</span><span class="s8">.</span><span class="s1">createIcons</span><span class="s8">();</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">/* --- SAFARI TINTING LOGIC --- */</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> heroImg </span><span class="s8">=</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s10">'hero-image'</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> canvas </span><span class="s8">=</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s10">'analysis-canvas'</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> ctx </span><span class="s8">=</span><span class="s1"> canvas</span><span class="s8">.</span><span class="s1">getContext</span><span class="s8">(</span><span class="s10">'2d'</span><span class="s8">,</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> willReadFrequently</span><span class="s8">:</span><span class="s1"> </span><span class="s7">true</span><span class="s1"> </span><span class="s8">});</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> metaThemeColor </span><span class="s8">=</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">querySelector</span><span class="s8">(</span><span class="s10">'meta[name="theme-color"]'</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> debugHex </span><span class="s8">=</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s10">'debug-hex'</span><span class="s8">);</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Configuration Updated</span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s4"> </span><span class="s1">HEADER_HEIGHT</span><span class="s4"> </span><span class="s8">=</span><span class="s4"> </span><span class="s13">110</span><span class="s8">;</span><span class="s4"><span class="Apple-converted-space"> </span></span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s4"> </span><span class="s1">WHITE_OVERLAY_ALPHA</span><span class="s4"> </span><span class="s8">=</span><span class="s4"> </span><span class="s13">0.50</span><span class="s8">;</span><span class="s4"> </span><span class="s12">// Updated to 50%</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> </span><span class="s14">WHITE_RGB</span><span class="s1"> </span><span class="s8">=</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> r</span><span class="s8">:</span><span class="s1"> </span><span class="s13">255</span><span class="s8">,</span><span class="s1"> g</span><span class="s8">:</span><span class="s1"> </span><span class="s13">255</span><span class="s8">,</span><span class="s1"> b</span><span class="s8">:</span><span class="s1"> </span><span class="s13">255</span><span class="s1"> </span><span class="s8">};</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">let</span><span class="s1"> isImageLoaded </span><span class="s8">=</span><span class="s1"> </span><span class="s7">false</span><span class="s8">;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">if</span><span class="s1"> </span><span class="s8">(</span><span class="s1">heroImg</span><span class="s8">.</span><span class="s1">complete</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>initCanvas</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span><span class="s1"> </span><span class="s7">else</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>heroImg</span><span class="s8">.</span><span class="s1">onload </span><span class="s8">=</span><span class="s1"> initCanvas</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> initCanvas</span><span class="s8">()</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>canvas</span><span class="s8">.</span><span class="s1">width </span><span class="s8">=</span><span class="s1"> heroImg</span><span class="s8">.</span><span class="s1">naturalWidth</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>canvas</span><span class="s8">.</span><span class="s1">height </span><span class="s8">=</span><span class="s1"> heroImg</span><span class="s8">.</span><span class="s1">naturalHeight</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>ctx</span><span class="s8">.</span><span class="s1">drawImage</span><span class="s8">(</span><span class="s1">heroImg</span><span class="s8">,</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> </span><span class="s13">0</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>isImageLoaded </span><span class="s8">=</span><span class="s1"> </span><span class="s7">true</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>updateThemeColor</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> getAverageColor</span><span class="s8">(</span><span class="s1">sampleY</span><span class="s8">,</span><span class="s1"> sampleHeight</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s1"> </span><span class="s8">(!</span><span class="s1">isImageLoaded</span><span class="s8">)</span><span class="s1"> </span><span class="s7">return</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> r</span><span class="s8">:</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> g</span><span class="s8">:</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> b</span><span class="s8">:</span><span class="s1"> </span><span class="s13">0</span><span class="s1"> </span><span class="s8">};</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> displayHeight </span><span class="s8">=</span><span class="s1"> heroImg</span><span class="s8">.</span><span class="s1">getBoundingClientRect</span><span class="s8">().</span><span class="s1">height</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> scale </span><span class="s8">=</span><span class="s1"> canvas</span><span class="s8">.</span><span class="s1">height </span><span class="s8">/</span><span class="s1"> displayHeight</span><span class="s8">;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> sourceY </span><span class="s8">=</span><span class="s1"> </span><span class="s14">Math</span><span class="s8">.</span><span class="s1">max</span><span class="s8">(</span><span class="s13">0</span><span class="s8">,</span><span class="s1"> sampleY </span><span class="s8">*</span><span class="s1"> scale</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> sourceH </span><span class="s8">=</span><span class="s1"> </span><span class="s14">Math</span><span class="s8">.</span><span class="s1">min</span><span class="s8">(</span><span class="s1">canvas</span><span class="s8">.</span><span class="s1">height </span><span class="s8">-</span><span class="s1"> sourceY</span><span class="s8">,</span><span class="s1"> sampleHeight </span><span class="s8">*</span><span class="s1"> scale</span><span class="s8">);</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s1"> </span><span class="s8">(</span><span class="s1">sourceH </span><span class="s8">&lt;=</span><span class="s1"> </span><span class="s13">0</span><span class="s8">)</span><span class="s1"> </span><span class="s7">return</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> r</span><span class="s8">:</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> g</span><span class="s8">:</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> b</span><span class="s8">:</span><span class="s1"> </span><span class="s13">0</span><span class="s1"> </span><span class="s8">};</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">try</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> imageData </span><span class="s8">=</span><span class="s1"> ctx</span><span class="s8">.</span><span class="s1">getImageData</span><span class="s8">(</span><span class="s13">0</span><span class="s8">,</span><span class="s1"> sourceY</span><span class="s8">,</span><span class="s1"> canvas</span><span class="s8">.</span><span class="s1">width</span><span class="s8">,</span><span class="s1"> sourceH</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> data </span><span class="s8">=</span><span class="s1"> imageData</span><span class="s8">.</span><span class="s1">data</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">let</span><span class="s1"> r </span><span class="s8">=</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> g </span><span class="s8">=</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> b </span><span class="s8">=</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> count </span><span class="s8">=</span><span class="s1"> </span><span class="s13">0</span><span class="s8">;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">for</span><span class="s1"> </span><span class="s8">(</span><span class="s7">let</span><span class="s1"> i </span><span class="s8">=</span><span class="s1"> </span><span class="s13">0</span><span class="s8">;</span><span class="s1"> i </span><span class="s8">&lt;</span><span class="s1"> data</span><span class="s8">.</span><span class="s1">length</span><span class="s8">;</span><span class="s1"> i </span><span class="s8">+=</span><span class="s1"> </span><span class="s13">40</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>r </span><span class="s8">+=</span><span class="s1"> data</span><span class="s8">[</span><span class="s1">i</span><span class="s8">];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>g </span><span class="s8">+=</span><span class="s1"> data</span><span class="s8">[</span><span class="s1">i</span><span class="s8">+</span><span class="s13">1</span><span class="s8">];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>b </span><span class="s8">+=</span><span class="s1"> data</span><span class="s8">[</span><span class="s1">i</span><span class="s8">+</span><span class="s13">2</span><span class="s8">];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>count</span><span class="s8">++;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">return</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>r</span><span class="s8">:</span><span class="s1"> </span><span class="s14">Math</span><span class="s8">.</span><span class="s1">round</span><span class="s8">(</span><span class="s1">r </span><span class="s8">/</span><span class="s1"> count</span><span class="s8">),</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>g</span><span class="s8">:</span><span class="s1"> </span><span class="s14">Math</span><span class="s8">.</span><span class="s1">round</span><span class="s8">(</span><span class="s1">g </span><span class="s8">/</span><span class="s1"> count</span><span class="s8">),</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>b</span><span class="s8">:</span><span class="s1"> </span><span class="s14">Math</span><span class="s8">.</span><span class="s1">round</span><span class="s8">(</span><span class="s1">b </span><span class="s8">/</span><span class="s1"> count</span><span class="s8">)</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s8">};</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">}</span><span class="s1"> </span><span class="s7">catch</span><span class="s1"> </span><span class="s8">(</span><span class="s1">e</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">return</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> r</span><span class="s8">:</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> g</span><span class="s8">:</span><span class="s1"> </span><span class="s13">0</span><span class="s8">,</span><span class="s1"> b</span><span class="s8">:</span><span class="s1"> </span><span class="s13">0</span><span class="s1"> </span><span class="s8">};</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> blendWithWhite</span><span class="s8">(</span><span class="s1">rgb</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s4"> r </span><span class="s8">=</span><span class="s4"> </span><span class="s1">Math</span><span class="s8">.</span><span class="s4">round</span><span class="s8">((</span><span class="s4">rgb</span><span class="s8">.</span><span class="s4">r </span><span class="s8">*</span><span class="s4"> </span><span class="s8">(</span><span class="s13">1</span><span class="s4"> </span><span class="s8">-</span><span class="s4"> </span><span class="s1">WHITE_OVERLAY_ALPHA</span><span class="s8">))</span><span class="s4"> </span><span class="s8">+</span><span class="s4"> </span><span class="s8">(</span><span class="s1">WHITE_RGB</span><span class="s8">.</span><span class="s4">r </span><span class="s8">*</span><span class="s4"> </span><span class="s1">WHITE_OVERLAY_ALPHA</span><span class="s8">));</span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s4"> g </span><span class="s8">=</span><span class="s4"> </span><span class="s1">Math</span><span class="s8">.</span><span class="s4">round</span><span class="s8">((</span><span class="s4">rgb</span><span class="s8">.</span><span class="s4">g </span><span class="s8">*</span><span class="s4"> </span><span class="s8">(</span><span class="s13">1</span><span class="s4"> </span><span class="s8">-</span><span class="s4"> </span><span class="s1">WHITE_OVERLAY_ALPHA</span><span class="s8">))</span><span class="s4"> </span><span class="s8">+</span><span class="s4"> </span><span class="s8">(</span><span class="s1">WHITE_RGB</span><span class="s8">.</span><span class="s4">g </span><span class="s8">*</span><span class="s4"> </span><span class="s1">WHITE_OVERLAY_ALPHA</span><span class="s8">));</span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s4"> b </span><span class="s8">=</span><span class="s4"> </span><span class="s1">Math</span><span class="s8">.</span><span class="s4">round</span><span class="s8">((</span><span class="s4">rgb</span><span class="s8">.</span><span class="s4">b </span><span class="s8">*</span><span class="s4"> </span><span class="s8">(</span><span class="s13">1</span><span class="s4"> </span><span class="s8">-</span><span class="s4"> </span><span class="s1">WHITE_OVERLAY_ALPHA</span><span class="s8">))</span><span class="s4"> </span><span class="s8">+</span><span class="s4"> </span><span class="s8">(</span><span class="s1">WHITE_RGB</span><span class="s8">.</span><span class="s4">b </span><span class="s8">*</span><span class="s4"> </span><span class="s1">WHITE_OVERLAY_ALPHA</span><span class="s8">));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">return</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> r</span><span class="s8">,</span><span class="s1"> g</span><span class="s8">,</span><span class="s1"> b </span><span class="s8">};</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> rgbToHex</span><span class="s8">(</span><span class="s1">r</span><span class="s8">,</span><span class="s1"> g</span><span class="s8">,</span><span class="s1"> b</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">return</span><span class="s1"> </span><span class="s10">"#"</span><span class="s1"> </span><span class="s8">+</span><span class="s1"> </span><span class="s8">((</span><span class="s13">1</span><span class="s1"> </span><span class="s8">&lt;&lt;</span><span class="s1"> </span><span class="s13">24</span><span class="s8">)</span><span class="s1"> </span><span class="s8">+</span><span class="s1"> </span><span class="s8">(</span><span class="s1">r </span><span class="s8">&lt;&lt;</span><span class="s1"> </span><span class="s13">16</span><span class="s8">)</span><span class="s1"> </span><span class="s8">+</span><span class="s1"> </span><span class="s8">(</span><span class="s1">g </span><span class="s8">&lt;&lt;</span><span class="s1"> </span><span class="s13">8</span><span class="s8">)</span><span class="s1"> </span><span class="s8">+</span><span class="s1"> b</span><span class="s8">).</span><span class="s1">toString</span><span class="s8">(</span><span class="s13">16</span><span class="s8">).</span><span class="s1">slice</span><span class="s8">(</span><span class="s13">1</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> updateThemeColor</span><span class="s8">()</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> scrollY </span><span class="s8">=</span><span class="s1"> window</span><span class="s8">.</span><span class="s1">scrollY</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> heroRect </span><span class="s8">=</span><span class="s1"> heroImg</span><span class="s8">.</span><span class="s1">getBoundingClientRect</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">let</span><span class="s1"> finalColorHex </span><span class="s8">=</span><span class="s1"> </span><span class="s10">"#ffffff"</span><span class="s8">;</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// Tinting logic mainly applies when over the Hero image</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s1"> </span><span class="s8">(</span><span class="s1">heroRect</span><span class="s8">.</span><span class="s1">bottom </span><span class="s8">&gt;</span><span class="s1"> </span><span class="s13">0</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> avgColor </span><span class="s8">=</span><span class="s1"> getAverageColor</span><span class="s8">(</span><span class="s1">scrollY</span><span class="s8">,</span><span class="s1"> </span><span class="s14">HEADER_HEIGHT</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> blendedColor </span><span class="s8">=</span><span class="s1"> blendWithWhite</span><span class="s8">(</span><span class="s1">avgColor</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>finalColorHex </span><span class="s8">=</span><span class="s1"> rgbToHex</span><span class="s8">(</span><span class="s1">blendedColor</span><span class="s8">.</span><span class="s1">r</span><span class="s8">,</span><span class="s1"> blendedColor</span><span class="s8">.</span><span class="s1">g</span><span class="s8">,</span><span class="s1"> blendedColor</span><span class="s8">.</span><span class="s1">b</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">}</span><span class="s1"> </span><span class="s7">else</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// When over the black gallery content:</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Background is Black (0,0,0).<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Overlay is White 50%.<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Result = 50% Grey (#808080).</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// We can hardcode this for performance or calculate it.</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Since the gallery images are dynamic, let's just default to a dark grey for simplicity</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// or keep it white if that's the desired "nav" look.<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Given the "Atomic" look, usually UI stays consistent.</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Let's blend Black with 50% White -&gt; #808080</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>finalColorHex </span><span class="s8">=</span><span class="s1"> </span><span class="s10">"#808080"</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>metaThemeColor</span><span class="s8">.</span><span class="s1">setAttribute</span><span class="s8">(</span><span class="s10">'content'</span><span class="s8">,</span><span class="s1"> finalColorHex</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s8">(</span><span class="s1">debugHex</span><span class="s8">)</span><span class="s1"> debugHex</span><span class="s8">.</span><span class="s1">innerText </span><span class="s8">=</span><span class="s1"> finalColorHex</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> throttle</span><span class="s8">(</span><span class="s1">func</span><span class="s8">,</span><span class="s1"> limit</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">let</span><span class="s1"> inThrottle</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">return</span><span class="s1"> </span><span class="s7">function</span><span class="s8">()</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> args </span><span class="s8">=</span><span class="s1"> arguments</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> context </span><span class="s8">=</span><span class="s1"> </span><span class="s7">this</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> </span><span class="s8">(!</span><span class="s1">inThrottle</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>func</span><span class="s8">.</span><span class="s1">apply</span><span class="s8">(</span><span class="s1">context</span><span class="s8">,</span><span class="s1"> args</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>inThrottle </span><span class="s8">=</span><span class="s1"> </span><span class="s7">true</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>setTimeout</span><span class="s8">(()</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> inThrottle </span><span class="s8">=</span><span class="s1"> </span><span class="s7">false</span><span class="s8">,</span><span class="s1"> limit</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s8">}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>window</span><span class="s8">.</span><span class="s1">addEventListener</span><span class="s8">(</span><span class="s10">'scroll'</span><span class="s8">,</span><span class="s1"> throttle</span><span class="s8">(</span><span class="s1">updateThemeColor</span><span class="s8">,</span><span class="s1"> </span><span class="s13">50</span><span class="s8">));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>window</span><span class="s8">.</span><span class="s1">addEventListener</span><span class="s8">(</span><span class="s10">'resize'</span><span class="s8">,</span><span class="s1"> throttle</span><span class="s8">(</span><span class="s1">initCanvas</span><span class="s8">,</span><span class="s1"> </span><span class="s13">500</span><span class="s8">));</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;/</span><span class="s1">body</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;/</span><span class="s1">html</span><span class="s3">&gt;</span></p>
+
+    <!-- The Dynamic Header -->
+    <header class="atomic-header" id="main-header">
+        <div class="top-bar">
+            Free Delivery + 30 Days Return
+        </div>
+        <div class="nav-row">
+            <!-- Hamburger Menu -->
+            <button class="p-2 hover:opacity-60 transition">
+                <i data-lucide="menu" stroke-width="1.5" size="24"></i>
+            </button>
+            
+            <!-- Bag Icon -->
+            <button class="p-2 hover:opacity-60 transition">
+                <i data-lucide="shopping-bag" stroke-width="1.5" size="24"></i>
+            </button>
+        </div>
+        
+        <!-- Center Logo -->
+        <div class="logo-container">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L15 10L23 10L17 15L19 23L12 18L5 23L7 15L1 10L9 10L12 2Z" fill="black"/>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="relative w-full bg-black">
+        
+        <!-- Hero Section -->
+        <div class="relative w-full h-[110vh] overflow-hidden">
+            <img 
+                id="hero-image"
+                src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2940&auto=format&fit=crop" 
+                alt="Skier in black and white"
+                class="absolute top-0 left-0 w-full h-full object-cover grayscale"
+                crossorigin="anonymous"
+            />
+            
+            <div class="absolute top-[45%] left-0 w-full text-center px-6 mix-blend-difference text-white">
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4 drop-shadow-xl">
+                    REDSTER
+                </h1>
+                <button class="mt-8 px-10 py-3 border border-white text-white rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white hover:text-black transition duration-300">
+                    Explore
+                </button>
+            </div>
+        </div>
+
+        <!-- Image Grid (Replaced random content) -->
+        <section class="relative z-10 bg-black">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+                
+                <!-- Item 1 -->
+                <div class="gallery-item aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Ski Texture">
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h3 class="uppercase text-2xl font-bold tracking-tighter">Backcountry</h3>
+                        <p class="text-xs tracking-widest mt-1 opacity-80">Maverick Series</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="gallery-item aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Ski Jump">
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h3 class="uppercase text-2xl font-bold tracking-tighter">Race</h3>
+                        <p class="text-xs tracking-widest mt-1 opacity-80">Redster G9</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="gallery-item aspect-square md:col-span-2">
+                    <img src="https://images.unsplash.com/photo-1486915309851-b962004d7781?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Mountain Peak">
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h3 class="uppercase text-2xl font-bold tracking-tighter">All Mountain</h3>
+                        <p class="text-xs tracking-widest mt-1 opacity-80">Bent Chetler</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="gallery-item aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1565992441121-4367c2967103?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Ski Gear">
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h3 class="uppercase text-2xl font-bold tracking-tighter">Protection</h3>
+                        <p class="text-xs tracking-widest mt-1 opacity-80">Helmets & Goggles</p>
+                    </div>
+                </div>
+
+                 <!-- Item 5 -->
+                 <div class="gallery-item aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale" alt="Powder Turn">
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h3 class="uppercase text-2xl font-bold tracking-tighter">Touring</h3>
+                        <p class="text-xs tracking-widest mt-1 opacity-80">Backland</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Debug Info (Hidden visually but kept for logic) -->
+            <div class="p-6 text-xs text-gray-700 font-mono opacity-0">
+                Tint: <span id="debug-hex">#CCCCCC</span>
+            </div>
+        </section>
+        
+        <footer class="bg-black text-white py-12 text-center text-xs opacity-50 tracking-widest">
+            ENGINEERED IN AUSTRIA &copy; 2025
+        </footer>
+
+    </main>
+
+    <!-- Hidden Canvas -->
+    <canvas id="analysis-canvas" class="hidden"></canvas>
+
+    <script>
+        lucide.createIcons();
+
+        /* --- SAFARI TINTING LOGIC --- */
+
+        const heroImg = document.getElementById('hero-image');
+        const canvas = document.getElementById('analysis-canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        const debugHex = document.getElementById('debug-hex');
+        
+        // Configuration Updated
+        const HEADER_HEIGHT = 110; 
+        const WHITE_OVERLAY_ALPHA = 0.50; // Updated to 50%
+        const WHITE_RGB = { r: 255, g: 255, b: 255 };
+
+        let isImageLoaded = false;
+
+        if (heroImg.complete) {
+            initCanvas();
+        } else {
+            heroImg.onload = initCanvas;
+        }
+
+        function initCanvas() {
+            canvas.width = heroImg.naturalWidth;
+            canvas.height = heroImg.naturalHeight;
+            ctx.drawImage(heroImg, 0, 0);
+            isImageLoaded = true;
+            updateThemeColor();
+        }
+
+        function getAverageColor(sampleY, sampleHeight) {
+            if (!isImageLoaded) return { r: 0, g: 0, b: 0 };
+
+            const displayHeight = heroImg.getBoundingClientRect().height;
+            const scale = canvas.height / displayHeight;
+            
+            const sourceY = Math.max(0, sampleY * scale);
+            const sourceH = Math.min(canvas.height - sourceY, sampleHeight * scale);
+            
+            if (sourceH <= 0) return { r: 0, g: 0, b: 0 };
+
+            try {
+                const imageData = ctx.getImageData(0, sourceY, canvas.width, sourceH);
+                const data = imageData.data;
+                let r = 0, g = 0, b = 0, count = 0;
+
+                for (let i = 0; i < data.length; i += 40) {
+                    r += data[i];
+                    g += data[i+1];
+                    b += data[i+2];
+                    count++;
+                }
+
+                return {
+                    r: Math.round(r / count),
+                    g: Math.round(g / count),
+                    b: Math.round(b / count)
+                };
+            } catch (e) {
+                return { r: 0, g: 0, b: 0 };
+            }
+        }
+
+        function blendWithWhite(rgb) {
+            const r = Math.round((rgb.r * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.r * WHITE_OVERLAY_ALPHA));
+            const g = Math.round((rgb.g * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.g * WHITE_OVERLAY_ALPHA));
+            const b = Math.round((rgb.b * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.b * WHITE_OVERLAY_ALPHA));
+            return { r, g, b };
+        }
+
+        function rgbToHex(r, g, b) {
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
+
+        function updateThemeColor() {
+            const scrollY = window.scrollY;
+            const heroRect = heroImg.getBoundingClientRect();
+            let finalColorHex = "#ffffff"; 
+
+            // Tinting logic mainly applies when over the Hero image
+            if (heroRect.bottom > 0) {
+                const avgColor = getAverageColor(scrollY, HEADER_HEIGHT);
+                const blendedColor = blendWithWhite(avgColor);
+                finalColorHex = rgbToHex(blendedColor.r, blendedColor.g, blendedColor.b);
+            } else {
+                // When over the black gallery content:
+                // Background is Black (0,0,0). 
+                // Overlay is White 50%. 
+                // Result = 50% Grey (#808080).
+                // We can hardcode this for performance or calculate it.
+                // Since the gallery images are dynamic, let's just default to a dark grey for simplicity
+                // or keep it white if that's the desired "nav" look. 
+                // Given the "Atomic" look, usually UI stays consistent.
+                // Let's blend Black with 50% White -> #808080
+                finalColorHex = "#808080";
+            }
+
+            metaThemeColor.setAttribute('content', finalColorHex);
+            if(debugHex) debugHex.innerText = finalColorHex;
+        }
+
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+
+        window.addEventListener('scroll', throttle(updateThemeColor, 50));
+        window.addEventListener('resize', throttle(initCanvas, 500));
+    </script>
 </body>
 </html>
