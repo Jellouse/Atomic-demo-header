@@ -1,384 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Atomic Ski Design Concept</title>
-    
-    <!-- Initial Theme Color: Start with a snowy white/light grey -->
-    <meta name="theme-color" content="#e5e7eb">
-    
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kinetic Edge - S1 Series</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#101320" />
+
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+      body {
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background-color: #101320;
+      }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #e5e7eb; 
-            color: #111;
-            overflow-x: hidden;
-            /* Crucial: Smooth transition for the body background during overscroll */
-            transition: background-color 0.1s linear; 
-        }
+      .glass-header {
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        clip-path: polygon(0 0, 100% 0, 100% 70%, 70% 100%, 30% 100%, 0 70%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      }
 
-        .atomic-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 120px; 
-            z-index: 50;
-            
-            /* Glass morphism: 40% White overlay */
-            background-color: rgba(255, 255, 255, 0.4); 
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            
-            /* The Structural Trapezoid */
-            clip-path: polygon(
-                0 0, 
-                100% 0, 
-                100% 60%,       
-                60% 60%,        
-                55% 100%,       
-                45% 100%,       
-                40% 60%,        
-                0 60%           
-            );
-            
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+      .safe-top {
+        padding-top: env(safe-area-inset-top);
+      }
 
-        .top-bar {
-            height: 40%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            color: #111;
-            text-transform: uppercase;
-            padding-bottom: 10px;
-        }
+      .header-height {
+        height: 120px;
+      }
 
-        .nav-row {
-            position: absolute;
-            top: 25px;
-            width: 100%;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: black;
-        }
-
-        .logo-container {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: black;
-            z-index: 60;
-            filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.8));
-        }
-
-        /* Debug Pill: Always visible indicator of the active theme color */
-        #debug-pill {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.8);
-            color: #fff;
-            font-family: monospace;
-            font-size: 10px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            z-index: 100;
-            pointer-events: none;
-            backdrop-filter: blur(4px);
-        }
-
-        .gallery-item { position: relative; overflow: hidden; background: #000; }
-        .gallery-img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1);
-            filter: grayscale(100%);
-        }
-        .gallery-item:hover .gallery-img {
-            transform: scale(1.05); filter: grayscale(0%);
-        }
+      html {
+        scroll-behavior: smooth;
+      }
     </style>
-</head>
-<body>
-
-    <header class="atomic-header" id="main-header">
-        <div class="top-bar">
-            Free Delivery + 30 Days Return
+  </head>
+  <body class="text-slate-50 antialiased">
+    <!-- Fixed glass header -->
+    <header
+      id="site-header"
+      class="glass-header fixed top-0 left-0 right-0 z-40 header-height safe-top"
+    >
+      <div
+        class="h-full max-w-4xl mx-auto flex items-center justify-between px-5"
+      >
+        <div class="flex items-center gap-2">
+          <div
+            class="h-8 w-8 rounded-xl border border-white/60 bg-gradient-to-br from-sky-300/80 via-slate-50 to-sky-500/80 flex items-center justify-center shadow-md shadow-sky-500/30"
+          >
+            <span class="text-[10px] font-semibold tracking-[0.2em]">KE</span>
+          </div>
+          <span class="text-[11px] tracking-[0.28em] uppercase text-slate-900/80">
+            Kinetic Edge
+          </span>
         </div>
-        <div class="nav-row">
-            <button class="p-2 opacity-80 hover:opacity-100 transition">
-                <i data-lucide="menu" stroke-width="1.5" size="24"></i>
-            </button>
-            <button class="p-2 opacity-80 hover:opacity-100 transition">
-                <i data-lucide="shopping-bag" stroke-width="1.5" size="24"></i>
-            </button>
-        </div>
-        <div class="logo-container">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L15 10L23 10L17 15L19 23L12 18L5 23L7 15L1 10L9 10L12 2Z" fill="black"/>
-            </svg>
-        </div>
+        <nav class="hidden sm:flex items-center gap-6 text-[11px]">
+          <a
+            href="#story"
+            class="tracking-[0.2em] uppercase text-slate-900/70 hover:text-slate-900"
+            >Story</a
+          >
+          <a
+            href="#collection"
+            class="tracking-[0.2em] uppercase text-slate-900/70 hover:text-slate-900"
+            >Series</a
+          >
+          <a
+            href="#footer"
+            class="tracking-[0.2em] uppercase text-slate-900/70 hover:text-slate-900"
+            >Labs</a
+          >
+        </nav>
+        <button
+          class="rounded-full border border-slate-900/10 bg-slate-900/85 text-slate-50 text-[10px] tracking-[0.22em] uppercase px-4 py-2 shadow-md shadow-slate-900/40"
+        >
+          Reserve
+        </button>
+      </div>
     </header>
 
-    <main class="relative w-full bg-white" id="main-content">
-        
-        <!-- Hero Section (Dark color area) -->
-        <div id="hero-section" class="relative w-full h-[110vh] bg-gray-300 overflow-hidden">
-            <!-- Display Image -->
-            <img 
-                id="hero-image"
-                src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2940&auto=format&fit=crop" 
-                alt="Skier"
-                class="absolute top-0 left-0 w-full h-full object-cover grayscale"
-                crossorigin="anonymous"
-            />
-            
-            <div class="absolute top-[45%] left-0 w-full text-center px-6 mix-blend-difference text-white pointer-events-none">
-                <h1 class="text-5xl md:text-8xl font-bold tracking-tighter mb-4 drop-shadow-2xl">
-                    REDSTER
-                </h1>
-                <div class="pointer-events-auto inline-block">
-                    <button class="mt-8 px-10 py-4 border border-white text-white rounded-full font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition duration-300">
-                        Explore Series
-                    </button>
-                </div>
+    <main class="relative">
+      <!-- HERO - DARK IMAGE -->
+      <section
+        id="hero"
+        data-tint-color="#050814"
+        class="relative min-h-[80vh] pt-[120px] flex items-center"
+      >
+        <div
+          class="absolute inset-0"
+          style="
+            background-image:
+              linear-gradient(to bottom, rgba(0, 3, 15, 0.9), rgba(0, 0, 0, 0.3)),
+              url('https://images.pexels.com/photos/2259810/pexels-photo-2259810.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
+            background-position: center;
+          "
+        ></div>
+
+        <div
+          class="relative z-10 max-w-4xl mx-auto px-5 py-12 flex flex-col gap-8"
+        >
+          <div class="max-w-xl">
+            <p class="text-[11px] tracking-[0.28em] uppercase text-sky-200/80">
+              S1 Series / All Mountain
+            </p>
+            <h1
+              class="mt-3 text-3xl md:text-4xl font-semibold tracking-tight leading-tight"
+            >
+              Edge hold for hardpack, control when the surface turns to glass
+            </h1>
+            <p class="mt-4 text-sm text-slate-100/85">
+              Lightweight carbon layup, race room edges, and a waist that stays
+              calm when your speed does not.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <button
+                class="rounded-full bg-sky-400/90 text-slate-950 px-5 py-2.5 text-[10px] font-semibold tracking-[0.22em] uppercase shadow-md shadow-sky-500/40"
+              >
+                Build setup
+              </button>
+              <button
+                class="rounded-full border border-slate-100/40 px-5 py-2.5 text-[10px] tracking-[0.22em] uppercase text-slate-50/85 hover:bg-slate-50/5"
+              >
+                Watch run
+              </button>
             </div>
+          </div>
         </div>
 
-        <!-- Product Grid (White color area) -->
-        <section class="relative z-10 bg-white" id="product-grid-section">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-gray-200">
-                <div class="gallery-item aspect-[4/5] md:col-span-1">
-                    <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&w=2000&auto=format&fit=crop" class="gallery-img">
-                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
-                        <h3 class="uppercase text-3xl font-bold tracking-tighter">Backcountry</h3>
-                    </div>
-                </div>
-                <div class="gallery-item aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=2000&auto=format&fit=crop" class="gallery-img">
-                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
-                        <h3 class="uppercase text-3xl font-bold tracking-tighter">Race</h3>
-                    </div>
-                </div>
+        <div
+          class="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-white"
+        ></div>
+      </section>
+
+      <!-- MID ZONE - LIGHT GRID -->
+      <section
+        id="story"
+        data-tint-color="#ffffff"
+        class="bg-white text-slate-900"
+      >
+        <div class="max-w-4xl mx-auto px-5 py-12 md:py-14">
+          <div class="grid md:grid-cols-2 gap-8 md:gap-10 items-start">
+            <div>
+              <p
+                class="text-[11px] tracking-[0.28em] uppercase text-slate-500 mb-3"
+              >
+                Built for ice mornings
+              </p>
+              <h2 class="text-xl md:text-2xl font-semibold tracking-tight">
+                One ski you can trust when the resort is scraped down to cord
+              </h2>
+              <p class="mt-3 text-sm text-slate-700">
+                Flex and sidecut tuned for skiers who are first chair on
+                injected snow and still out when it softens.
+              </p>
             </div>
-            
-            <div class="py-24 px-8 text-center bg-white text-black">
-                <h2 class="text-2xl font-bold uppercase tracking-tighter mb-6">Engineered in Austria</h2>
-                <p class="text-gray-500 max-w-lg mx-auto text-sm leading-loose">
-                    We represent the sport of skiing. Everything we do is driven by our passion for the sport and the mountains.
+            <div class="space-y-3 text-sm text-slate-700" id="collection">
+              <div class="border border-slate-200 rounded-2xl p-4">
+                <p
+                  class="text-[10px] tracking-[0.26em] uppercase text-slate-500 mb-1"
+                >
+                  S1 Edge 92
                 </p>
+                <p>92 mm waist, 3 radius map, full sidewall construction.</p>
+              </div>
+              <div class="border border-slate-200 rounded-2xl p-4">
+                <p
+                  class="text-[10px] tracking-[0.26em] uppercase text-slate-500 mb-1"
+                >
+                  S1 Ice Lab 82
+                </p>
+                <p>
+                  Ice specific layup that keeps the edge quiet on boilerplate.
+                </p>
+              </div>
             </div>
-        </section>
-        
-        <!-- Footer (Black color area) -->
-        <footer class="bg-black text-white py-12 text-center text-[10px] uppercase tracking-widest opacity-90" id="main-footer">
-            &copy; 2025 Atomic Ski
-        </footer>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER - BLACK -->
+      <footer
+        id="footer"
+        data-tint-color="#000000"
+        class="bg-black text-slate-100"
+      >
+        <div class="max-w-4xl mx-auto px-5 py-12">
+          <div class="grid md:grid-cols-[1.2fr,1fr] gap-8 md:gap-10">
+            <div>
+              <p
+                class="text-[11px] tracking-[0.28em] uppercase text-slate-400 mb-2"
+              >
+                Snow labs
+              </p>
+              <h3 class="text-lg md:text-xl font-semibold tracking-tight">
+                Share your stats and we return a flex profile
+              </h3>
+              <p class="mt-3 text-sm text-slate-300">
+                Tell us how and where you ski, and our technicians answer with
+                mount, length, and tune suggestions.
+              </p>
+            </div>
+            <form class="space-y-3 text-xs">
+              <input
+                type="text"
+                placeholder="Height / weight"
+                class="w-full rounded-full bg-black/60 border border-slate-700 px-3 py-2 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-sky-400"
+              />
+              <input
+                type="text"
+                placeholder="Home mountain"
+                class="w-full rounded-full bg-black/60 border border-slate-700 px-3 py-2 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-sky-400"
+              />
+              <input
+                type="email"
+                placeholder="Email for setup file"
+                class="w-full rounded-full bg-black/60 border border-slate-700 px-3 py-2 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-sky-400"
+              />
+              <button
+                type="button"
+                class="w-full rounded-full bg-slate-50 text-slate-900 py-2.5 text-[10px] font-semibold tracking-[0.22em] uppercase hover:bg-slate-200"
+              >
+                Request setup
+              </button>
+            </form>
+          </div>
+          <div
+            class="mt-8 pt-5 border-t border-slate-900 flex flex-col md:flex-row gap-3 md:items-center md:justify-between text-[11px] text-slate-500"
+          >
+            <span class="tracking-[0.24em] uppercase">Kinetic Edge</span>
+            <span>Innsbruck / Chamonix / Åre</span>
+          </div>
+        </div>
+      </footer>
     </main>
 
-    <div id="debug-pill">Scroll Engine Active</div>
-
-    <!-- Hidden Canvas for Analysis -->
-    <canvas id="analysis-canvas" class="hidden"></canvas>
-
+    <!-- Dynamic theme color / overscroll tint -->
     <script>
-        lucide.createIcons();
+      (function () {
+        const WHITE_BLEND_ALPHA = 0.4;
+        const header = document.getElementById("site-header");
+        const themeMeta = document.querySelector('meta[name="theme-color"]');
+        const tintZones = Array.from(
+          document.querySelectorAll("[data-tint-color]")
+        );
 
-        /* --- TRUE DYNAMIC SAMPLING ENGINE --- */
-
-        const canvas = document.getElementById('analysis-canvas');
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
-        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        const debugPill = document.getElementById('debug-pill');
-        const heroSection = document.getElementById('hero-section');
-        const footer = document.getElementById('main-footer');
-        
-        // Constants
-        const HEADER_HEIGHT = 120; // Height of the area we sample
-        const BG_IMAGE_FACTOR = 0.6; // Image contribution to the blend
-        const WHITE_OVERLAY_FACTOR = 0.4; // Header's 40% White overlay contribution
-        const WHITE_RGB = 255; 
-
-        // Dynamic Image Element for Analysis
-        const analysisImg = new Image();
-        analysisImg.crossOrigin = "Anonymous";
-        analysisImg.src = heroSection.querySelector('img').src; 
-
-        let isReady = false; // Flag for successful image load/CORS check
-        let isImageLoaded = false;
-
-        // --- Utility Functions ---
+        function hexToRgb(hex) {
+          if (!hex) return null;
+          let cleaned = hex.replace("#", "").trim();
+          if (cleaned.length === 3) {
+            cleaned =
+              cleaned[0] +
+              cleaned[0] +
+              cleaned[1] +
+              cleaned[1] +
+              cleaned[2] +
+              cleaned[2];
+          }
+          if (cleaned.length !== 6) return null;
+          const r = parseInt(cleaned.slice(0, 2), 16);
+          const g = parseInt(cleaned.slice(2, 4), 16);
+          const b = parseInt(cleaned.slice(4, 6), 16);
+          if ([r, g, b].some((v) => Number.isNaN(v))) return null;
+          return { r, g, b };
+        }
 
         function rgbToHex(r, g, b) {
-            // Converts RGB values to a hex string
-            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+          const toHex = (v) => {
+            const clamped = Math.max(0, Math.min(255, Math.round(v)));
+            return clamped.toString(16).padStart(2, "0");
+          };
+          return "#" + toHex(r) + toHex(g) + toHex(b);
         }
 
-        // Blends the base color with the 40% white overlay from the header
-        function blendColor(r, g, b) {
-            return {
-                r: Math.round((r * BG_IMAGE_FACTOR) + (WHITE_RGB * WHITE_OVERLAY_FACTOR)),
-                g: Math.round((g * BG_IMAGE_FACTOR) + (WHITE_RGB * WHITE_OVERLAY_FACTOR)),
-                b: Math.round((b * BG_IMAGE_FACTOR) + (WHITE_RGB * WHITE_OVERLAY_FACTOR)),
-            };
+        function blendWithWhite(rgb, alphaWhite) {
+          const baseFactor = 1 - alphaWhite;
+          const r = rgb.r * baseFactor + 255 * alphaWhite;
+          const g = rgb.g * baseFactor + 255 * alphaWhite;
+          const b = rgb.b * baseFactor + 255 * alphaWhite;
+          return { r, g, b };
         }
 
-        // --- Core Engine Logic ---
-
-        // Called on image load/CORS success
-        analysisImg.onload = function() {
-            canvas.width = analysisImg.naturalWidth;
-            canvas.height = analysisImg.naturalHeight;
-            ctx.drawImage(analysisImg, 0, 0);
-            isReady = true;
-            isImageLoaded = true;
-            debugPill.innerText = "ENGINE ACTIVE (Live)";
-            debugPill.style.color = "#00ff00";
-            updateTint();
-        };
-
-        // Called on image load/CORS failure
-        analysisImg.onerror = function() {
-            isReady = true; // Still ready to execute the fallback logic
-            isImageLoaded = false;
-            debugPill.innerText = "CORS ERROR (Fallback)";
-            debugPill.style.color = "#ffdd00";
-            updateTint();
+        function weightedAverage(colors) {
+          if (!colors.length) return { r: 255, g: 255, b: 255 };
+          let totalWeight = 0;
+          let r = 0,
+            g = 0,
+            b = 0;
+          colors.forEach((entry) => {
+            const w = entry.weight;
+            totalWeight += w;
+            r += entry.rgb.r * w;
+            g += entry.rgb.g * w;
+            b += entry.rgb.b * w;
+          });
+          if (totalWeight === 0) return { r: 255, g: 255, b: 255 };
+          return {
+            r: r / totalWeight,
+            g: g / totalWeight,
+            b: b / totalWeight,
+          };
         }
-
-
-        // Fallback colors for areas where sampling is impossible/off-screen
-        const FALLBACK_WHITE = blendColor(255, 255, 255); // White section blend
-        const FALLBACK_DARK = blendColor(0, 0, 0);       // Black footer blend
-        const FALLBACK_LIGHT = blendColor(229, 231, 235); // Initial sky/light grey blend
-
-
-        function getVisibleContentColor() {
-            const scrollY = window.scrollY;
-            const heroRect = heroSection.getBoundingClientRect();
-            const footerRect = footer.getBoundingClientRect();
-            
-            // 1. Over the Hero Image Section (ScrollY < Hero Height)
-            if (scrollY < heroSection.offsetHeight) {
-                
-                // If the image is loaded and we are over it, try to sample
-                if (isImageLoaded) {
-                    const displayRect = heroSection.getBoundingClientRect();
-                    const scale = canvas.height / displayRect.height;
-                    
-                    // Y position on the high-res canvas (source image)
-                    const sourceY = Math.max(0, scrollY * scale);
-                    const sourceH = Math.min(canvas.height - sourceY, HEADER_HEIGHT * scale);
-
-                    if (sourceH > 0) {
-                        try {
-                            const imageData = ctx.getImageData(0, sourceY, canvas.width, sourceH);
-                            const data = imageData.data;
-                            let r=0, g=0, b=0, count=0;
-
-                            // Sample every 100th pixel for performance
-                            for (let i = 0; i < data.length; i += 400) { 
-                                r += data[i];
-                                g += data[i+1];
-                                b += data[i+2];
-                                count++;
-                            }
-
-                            if (count > 0) {
-                                const avgR = Math.round(r / count);
-                                const avgG = Math.round(g / count);
-                                const avgB = Math.round(b / count);
-                                
-                                return blendColor(avgR, avgG, avgB);
-                            }
-                        } catch(e) {
-                            // If sampling fails mid-scroll (very rare, but safe)
-                            console.error("Sampling error:", e);
-                        }
-                    }
-                }
-                
-                // Fallback for Hero Section (Image failed or sampled outside bounds)
-                // Use a simple blend between light and dark based on scroll progress
-                const progress = scrollY / heroSection.offsetHeight;
-                if (progress < 0.2) return FALLBACK_LIGHT; // Top 20% (Sky)
-                return FALLBACK_DARK; // Rest (Mountain/Dark part)
-
-            } 
-            
-            // 2. Over the White Content Section (Hero is off-screen, Footer not visible at top)
-            else if (scrollY < footer.offsetTop - HEADER_HEIGHT) {
-                return FALLBACK_WHITE;
-            }
-            
-            // 3. Over the Footer Section (Footer is scrolling up)
-            else {
-                // Determine normalized progress from the content (100% white) to the footer (100% black)
-                const transitionStart = footer.offsetTop - HEADER_HEIGHT;
-                const transitionRange = footer.offsetHeight; // Use footer height as range for simplicity
-                
-                const progress = Math.min(1, (scrollY - transitionStart) / transitionRange);
-                
-                // Interpolate from BLEND_WHITE to BLEND_DARK
-                const r = Math.round(FALLBACK_WHITE.r + (FALLBACK_DARK.r - FALLBACK_WHITE.r) * progress);
-                const g = Math.round(FALLBACK_WHITE.g + (FALLBACK_DARK.g - FALLBACK_WHITE.g) * progress);
-                const b = Math.round(FALLBACK_WHITE.b + (FALLBACK_DARK.b - FALLBACK_WHITE.b) * progress);
-                
-                return { r, g, b };
-            }
-        }
-
 
         function updateTint() {
-            if (!isReady && !isImageLoaded) {
-                 // Still waiting for image load/error to set isReady flag
-                 return;
-            }
+          if (!header || tintZones.length === 0) return;
 
-            const targetRGB = getVisibleContentColor();
-            const hex = rgbToHex(targetRGB.r, targetRGB.g, targetRGB.b);
+          const headerHeight = header.offsetHeight || 120;
+          const headerTop = 0;
+          const headerBottom = headerHeight;
 
-            // Apply Changes to the Meta Tag and Body
-            if (metaThemeColor.getAttribute('content') !== hex) {
-                metaThemeColor.setAttribute('content', hex);
-                document.body.style.backgroundColor = hex;
-                debugPill.innerText = isImageLoaded 
-                    ? `LIVE: ${hex.toUpperCase()}` 
-                    : `FALLBACK: ${hex.toUpperCase()}`;
+          const overlaps = [];
+
+          tintZones.forEach((zone) => {
+            const rect = zone.getBoundingClientRect();
+            const overlap =
+              Math.min(rect.bottom, headerBottom) -
+              Math.max(rect.top, headerTop);
+            if (overlap > 0) {
+              const baseRgb = hexToRgb(zone.dataset.tintColor);
+              if (!baseRgb) return;
+              overlaps.push({ rgb: baseRgb, weight: overlap });
             }
+          });
+
+          const avg = weightedAverage(overlaps);
+          const blended = blendWithWhite(avg, WHITE_BLEND_ALPHA);
+          const finalHex = rgbToHex(blended.r, blended.g, blended.b);
+
+          if (themeMeta) {
+            themeMeta.setAttribute("content", finalHex);
+          }
+          document.body.style.backgroundColor = finalHex;
+          document.documentElement.style.backgroundColor = finalHex;
         }
 
-        // --- Event Listeners ---
-        
-        // Scroll Loop for optimal performance
         let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    updateTint();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
-        // Run once on load to set initial state (if image is already loaded)
-        if (analysisImg.complete) {
-            analysisImg.onload();
+        function handleScrollOrResize() {
+          if (!ticking) {
+            window.requestAnimationFrame(function () {
+              updateTint();
+              ticking = false;
+            });
+            ticking = true;
+          }
         }
 
+        window.addEventListener("scroll", handleScrollOrResize, {
+          passive: true,
+        });
+        window.addEventListener("resize", handleScrollOrResize);
+
+        document.addEventListener("DOMContentLoaded", updateTint);
+        window.addEventListener("load", updateTint);
+      })();
     </script>
-</body>
+  </body>
 </html>
