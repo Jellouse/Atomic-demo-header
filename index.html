@@ -21,10 +21,36 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
+      :root {
+        --bg-color: 16 19 32;
+      }
+
       body {
         font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
-        background-color: #101320;
+        background-color: rgb(var(--bg-color));
+      }
+
+      .statusbar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: -80px;
+        height: 80px;
+        overflow: hidden;
+        z-index: 100;
+      }
+
+      .statusbar::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 150%;
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        background-color: rgb(var(--bg-color) / 0.6);
       }
 
       .glass-header {
@@ -49,6 +75,7 @@
     </style>
   </head>
   <body class="text-slate-50 antialiased">
+    <div class="statusbar"></div>
     <!-- Fixed glass header -->
     <header
       id="site-header"
@@ -339,10 +366,19 @@
           const avg = weightedAverage(overlaps);
           const blended = blendWithWhite(avg, WHITE_BLEND_ALPHA);
           const finalHex = rgbToHex(blended.r, blended.g, blended.b);
+          const finalRgb = hexToRgb(finalHex);
 
           if (themeMeta) {
             themeMeta.setAttribute("content", finalHex);
           }
+
+          if (finalRgb) {
+            document.body.style.setProperty(
+              "--bg-color",
+              finalRgb.r + " " + finalRgb.g + " " + finalRgb.b
+            );
+          }
+
           document.body.style.backgroundColor = finalHex;
           document.documentElement.style.backgroundColor = finalHex;
         }
