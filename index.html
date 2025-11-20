@@ -2,27 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- viewport-fit=cover is essential for the content to go under the notch -->
+    <!-- viewport-fit=cover extends the page into the notch area -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Atomic Ski Design Concept</title>
     
-    <!-- Initial theme color -->
-    <meta name="theme-color" content="#808080">
+    <!-- Initial Theme Color: Starts lighter to match the snowy top -->
+    <meta name="theme-color" content="#e5e5e5">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Custom Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 
         body {
             font-family: 'Inter', sans-serif;
-            /* Removed fixed black background. It is now dynamic via JS. */
-            /* We set a default to prevent flash, but JS will take over. */
-            background-color: #808080; 
-            color: #111; /* Text is now dark for the white theme */
+            /* Default background matches the header tint */
+            background-color: #e5e5e5; 
+            color: #111;
             overflow-x: hidden;
-            transition: background-color 0.3s ease; /* Smooth transition for the body color */
+            /* Smoothly transition the overscroll background color */
+            transition: background-color 0.2s linear;
         }
 
         .atomic-header {
@@ -30,24 +29,28 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 110px;
+            height: 120px; /* Taller to accommodate the deeper notch */
             z-index: 50;
             
-            /* 50% White Opacity as requested */
+            /* 50% White Opacity */
             background-color: rgba(255, 255, 255, 0.5); 
+            
+            /* The Frost Effect */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             
-            /* Trapezoid Notch */
+            /* Refined Trapezoid Notch 
+               Wider base for a more aggressive, structural look.
+            */
             clip-path: polygon(
                 0 0, 
                 100% 0, 
-                100% 65%, 
-                58% 65%, 
-                54% 100%, 
-                46% 100%, 
-                42% 65%, 
-                0 65%
+                100% 60%,       /* Main bar bottom-right */
+                60% 60%,        /* Start of right slope */
+                55% 100%,       /* Bottom right tip */
+                45% 100%,       /* Bottom left tip */
+                40% 60%,        /* End of left slope */
+                0 60%           /* Main bar bottom-left */
             );
             
             transition: background-color 0.3s ease;
@@ -63,7 +66,7 @@
             font-weight: 600;
             color: #111;
             text-transform: uppercase;
-            padding-bottom: 5px;
+            padding-bottom: 10px;
         }
 
         .nav-row {
@@ -79,114 +82,131 @@
 
         .logo-container {
             position: absolute;
-            bottom: 12px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             color: black;
             z-index: 60;
+            /* Atomic logo enhancement */
+            filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.5));
         }
 
+        /* Gallery Styles */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
         .gallery-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1);
+            filter: grayscale(100%);
         }
         .gallery-item:hover .gallery-img {
             transform: scale(1.05);
-        }
-        .gallery-item {
-            overflow: hidden;
-            position: relative;
+            filter: grayscale(0%); /* Reveal color on hover */
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <header class="atomic-header" id="main-header">
         <div class="top-bar">
             Free Delivery + 30 Days Return
         </div>
         <div class="nav-row">
-            <button class="p-2 hover:opacity-60 transition">
+            <button class="p-2 opacity-80 hover:opacity-100 transition">
                 <i data-lucide="menu" stroke-width="1.5" size="24"></i>
             </button>
-            <button class="p-2 hover:opacity-60 transition">
+            <button class="p-2 opacity-80 hover:opacity-100 transition">
                 <i data-lucide="shopping-bag" stroke-width="1.5" size="24"></i>
             </button>
         </div>
         <div class="logo-container">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <!-- Atomic-style Star -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2L15 10L23 10L17 15L19 23L12 18L5 23L7 15L1 10L9 10L12 2Z" fill="black"/>
             </svg>
         </div>
     </header>
 
-    <!-- Content Wrapper -->
-    <!-- We force this to be white to separate content from the dynamic body background -->
-    <main class="relative w-full bg-white z-10">
+    <main class="relative w-full bg-white">
         
-        <!-- Hero -->
-        <div class="relative w-full h-[110vh] overflow-hidden bg-gray-200">
+        <!-- Hero Section -->
+        <!-- We use a gradient background placeholder to prevent white flash before image loads -->
+        <div class="relative w-full h-[110vh] bg-gray-200 overflow-hidden">
             <img 
                 id="hero-image"
                 src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2940&auto=format&fit=crop" 
                 alt="Skier"
                 class="absolute top-0 left-0 w-full h-full object-cover grayscale"
                 crossorigin="anonymous"
-                onerror="console.log('Image failed to load')"
             />
             
-            <div class="absolute top-[45%] left-0 w-full text-center px-6 mix-blend-difference text-white">
-                <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4 drop-shadow-xl">
+            <!-- Hero Text -->
+            <div class="absolute top-[45%] left-0 w-full text-center px-6 mix-blend-difference text-white pointer-events-none">
+                <h1 class="text-5xl md:text-8xl font-bold tracking-tighter mb-4 drop-shadow-2xl">
                     REDSTER
                 </h1>
-                <button class="mt-8 px-10 py-3 border border-white text-white rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white hover:text-black transition duration-300">
-                    Explore
-                </button>
+                <div class="pointer-events-auto inline-block">
+                    <button class="mt-8 px-10 py-4 border border-white text-white rounded-full font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition duration-300">
+                        Explore Series
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- Gallery -->
-        <section class="relative z-10 bg-white pb-20">
-            <!-- Status Indicator for Debugging -->
-            <div id="status-bar" class="w-full py-4 text-[10px] text-center text-gray-400 uppercase font-mono border-b border-gray-100">
-                System Status: <span id="tint-value">Initializing...</span>
+        <!-- Product Grid -->
+        <section class="relative z-10 bg-white">
+            
+            <!-- Debug/Status Line (Subtle) -->
+            <div class="w-full py-2 text-[9px] text-center text-gray-300 uppercase font-mono border-b border-gray-100 tracking-widest">
+                Dynamic Tint: <span id="tint-status">Initializing...</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-gray-200">
+                
+                <!-- Large Tile -->
+                <div class="gallery-item aspect-[4/5] md:col-span-1">
+                    <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&w=2000&auto=format&fit=crop" class="gallery-img" alt="Snow Texture">
+                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
+                        <h3 class="uppercase text-3xl font-bold tracking-tighter">Backcountry</h3>
+                        <p class="text-xs tracking-widest mt-1 opacity-90">Bent Chetler Series</p>
+                    </div>
+                </div>
+
+                <!-- Standard Tile -->
                 <div class="gallery-item aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1605540436563-5bca919ae766?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale">
-                    <div class="absolute bottom-6 left-6 text-white drop-shadow-md">
-                        <h3 class="uppercase text-2xl font-bold tracking-tighter">Backcountry</h3>
+                    <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=2000&auto=format&fit=crop" class="gallery-img" alt="Racer">
+                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
+                        <h3 class="uppercase text-3xl font-bold tracking-tighter">Race</h3>
+                        <p class="text-xs tracking-widest mt-1 opacity-90">Redster G9</p>
                     </div>
                 </div>
-                <div class="gallery-item aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale">
-                    <div class="absolute bottom-6 left-6 text-white drop-shadow-md">
-                        <h3 class="uppercase text-2xl font-bold tracking-tighter">Race</h3>
+
+                <!-- Wide Tile -->
+                <div class="gallery-item aspect-square md:aspect-[2/1] md:col-span-2">
+                    <img src="https://images.unsplash.com/photo-1518616772834-8f798d734cb3?q=80&w=2000&auto=format&fit=crop" class="gallery-img" alt="Wide Mountain">
+                    <div class="absolute bottom-8 left-8 text-white drop-shadow-lg pointer-events-none">
+                        <h3 class="uppercase text-3xl font-bold tracking-tighter">All Mountain</h3>
+                        <p class="text-xs tracking-widest mt-1 opacity-90">Maverick / Maven</p>
                     </div>
                 </div>
-                <div class="gallery-item aspect-square md:col-span-2">
-                    <img src="https://images.unsplash.com/photo-1486915309851-b962004d7781?q=80&w=2000&auto=format&fit=crop" class="gallery-img grayscale">
-                    <div class="absolute bottom-6 left-6 text-white drop-shadow-md">
-                        <h3 class="uppercase text-2xl font-bold tracking-tighter">All Mountain</h3>
-                    </div>
-                </div>
+
             </div>
             
-            <div class="p-10 text-black">
-                <h2 class="text-3xl font-bold uppercase tracking-tight mb-4">Engineered in Austria</h2>
-                <p class="text-gray-600 max-w-md text-sm leading-relaxed">
-                    Every Atomic ski is built with a passion for the sport. 
-                    Our Redster technology brings World Cup speed to your local piste.
+            <div class="py-24 px-8 text-center bg-white text-black">
+                <h2 class="text-2xl font-bold uppercase tracking-tighter mb-6">Engineered in Austria</h2>
+                <p class="text-gray-500 max-w-lg mx-auto text-sm leading-loose">
+                    We represent the sport of skiing. Everything we do is driven by our passion for the sport and the mountains.
                 </p>
             </div>
         </section>
         
-        <footer class="bg-white text-black py-12 text-center text-xs border-t border-gray-200 tracking-widest">
-            &copy; 2025 ATOMIC SKI
+        <footer class="bg-black text-white py-12 text-center text-[10px] uppercase tracking-widest opacity-90">
+            &copy; 2025 Atomic Ski
         </footer>
     </main>
 
@@ -196,88 +216,106 @@
     <script>
         lucide.createIcons();
 
-        /* --- SAFARI TINTING LOGIC --- */
+        /* --- ROBUST TINTING ENGINE --- */
 
         const heroImg = document.getElementById('hero-image');
         const canvas = document.getElementById('analysis-canvas');
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        const tintStatus = document.getElementById('tint-value');
+        const statusLabel = document.getElementById('tint-status');
         
-        const HEADER_HEIGHT = 110; 
-        const WHITE_OVERLAY_ALPHA = 0.50;
-        const WHITE_RGB = { r: 255, g: 255, b: 255 };
-
+        const HEADER_HEIGHT = 120; 
+        const WHITE_OVERLAY_ALPHA = 0.50; // 50% Transparency
+        
+        // State
         let isImageLoaded = false;
-        let isTainted = false;
+        let isTainted = false; // Tracks if security blocks us
 
-        setTimeout(updateThemeColor, 500);
-
+        // 1. Image Handling
         if (heroImg.complete) {
             initCanvas();
         } else {
             heroImg.onload = initCanvas;
             heroImg.onerror = () => {
-                tintStatus.innerText = "Img Error (Defaulting)";
-                updateThemeColor(); 
+                isTainted = true;
+                updateThemeColor();
             };
         }
 
         function initCanvas() {
             try {
-                canvas.width = heroImg.naturalWidth;
-                canvas.height = heroImg.naturalHeight;
+                canvas.width = heroImg.naturalWidth || 1000;
+                canvas.height = heroImg.naturalHeight || 1000;
+                
+                // Try to draw image
                 ctx.drawImage(heroImg, 0, 0);
+                
+                // Test read (throws error if blocked)
+                ctx.getImageData(0, 0, 1, 1);
+                
                 isImageLoaded = true;
-                tintStatus.innerText = "Canvas Ready";
-                updateThemeColor();
+                isTainted = false;
+                statusLabel.innerText = "Active (Live Sampling)";
             } catch(e) {
-                console.error("Canvas Tainted", e);
+                console.log("CORS blocked image reading. Switching to Simulation Mode.");
                 isTainted = true;
-                tintStatus.innerText = "Security Block (Defaulting)";
+                statusLabel.innerText = "Active (Simulation Mode)";
             }
+            updateThemeColor();
         }
 
-        function getAverageColor(sampleY, sampleHeight) {
-            if (!isImageLoaded || isTainted) return { r: 128, g: 128, b: 128 }; // Default grey
-
-            const displayHeight = heroImg.getBoundingClientRect().height;
-            const scale = canvas.height / displayHeight;
-            
-            const sourceY = Math.max(0, sampleY * scale);
-            const sourceH = Math.min(canvas.height - sourceY, sampleHeight * scale);
-            
-            if (sourceH <= 0) return { r: 255, g: 255, b: 255 }; // Passed image -> White
-
-            try {
-                const imageData = ctx.getImageData(0, sourceY, canvas.width, sourceH);
-                const data = imageData.data;
-                let r = 0, g = 0, b = 0, count = 0;
-
-                for (let i = 0; i < data.length; i += 200) {
-                    r += data[i];
-                    g += data[i+1];
-                    b += data[i+2];
-                    count++;
+        // 2. Color Logic
+        function getAverageColor(scrollY) {
+            // A. LIVE SAMPLING (Best case)
+            if (isImageLoaded && !isTainted) {
+                try {
+                    // Map scroll to image coordinates
+                    const displayHeight = heroImg.getBoundingClientRect().height;
+                    const scale = canvas.height / displayHeight;
+                    const sourceY = Math.max(0, scrollY * scale);
+                    
+                    // Sample a strip
+                    const imageData = ctx.getImageData(0, sourceY, canvas.width, 50); 
+                    const data = imageData.data;
+                    let r=0, g=0, b=0, count=0;
+                    
+                    for (let i = 0; i < data.length; i += 100) {
+                        r += data[i]; g += data[i+1]; b += data[i+2]; count++;
+                    }
+                    return { r: Math.round(r/count), g: Math.round(g/count), b: Math.round(b/count) };
+                } catch(e) {
+                    isTainted = true; // Fallback if random fail
                 }
+            }
 
-                if(count === 0) return { r:255, g:255, b:255 };
-
-                return {
-                    r: Math.round(r / count),
-                    g: Math.round(g / count),
-                    b: Math.round(b / count)
-                };
-            } catch (e) {
-                isTainted = true;
-                return { r: 128, g: 128, b: 128 };
+            // B. SIMULATION MODE (Fallback)
+            // If we can't read the image, we return a color that MATCHES the image visually
+            // The image is: White Sky (0-30%) -> Darker Mountains (30-60%) -> White Snow (60-100%)
+            
+            const screenH = window.innerHeight;
+            const progress = Math.min(1, scrollY / (screenH * 1.1)); // 0 to 1 over Hero section
+            
+            // Gradient Logic for the specific "Redster" image
+            if (progress < 0.2) {
+                // Top: White/Light Grey Sky
+                return { r: 240, g: 240, b: 245 }; 
+            } else if (progress < 0.5) {
+                // Middle: Darker Rocks/Contrast
+                // Interpolate from White to Dark Grey
+                const localP = (progress - 0.2) / 0.3; 
+                const val = 240 - (localP * 100); // Drop to 140
+                return { r: val, g: val, b: val };
+            } else {
+                // Bottom: Bright Snow
+                return { r: 220, g: 220, b: 220 };
             }
         }
 
         function blendWithWhite(rgb) {
-            const r = Math.round((rgb.r * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.r * WHITE_OVERLAY_ALPHA));
-            const g = Math.round((rgb.g * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.g * WHITE_OVERLAY_ALPHA));
-            const b = Math.round((rgb.b * (1 - WHITE_OVERLAY_ALPHA)) + (WHITE_RGB.b * WHITE_OVERLAY_ALPHA));
+            // Result = (Source * 0.5) + (White * 0.5)
+            const r = Math.round((rgb.r * 0.5) + (255 * 0.5));
+            const g = Math.round((rgb.g * 0.5) + (255 * 0.5));
+            const b = Math.round((rgb.b * 0.5) + (255 * 0.5));
             return { r, g, b };
         }
 
@@ -285,47 +323,44 @@
             return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
         }
 
+        // 3. Main Update Loop
         function updateThemeColor() {
             const scrollY = window.scrollY;
-            const heroRect = heroImg.getBoundingClientRect();
-            let finalColorHex = "#ffffff"; 
+            const heroH = heroImg.getBoundingClientRect().height;
+            
+            let finalColor = "#ffffff";
 
-            if (heroRect.bottom > 0) {
-                // Over the image: Calculate tint
-                const avgColor = getAverageColor(scrollY, HEADER_HEIGHT);
-                const blendedColor = blendWithWhite(avgColor);
-                finalColorHex = rgbToHex(blendedColor.r, blendedColor.g, blendedColor.b);
+            if (scrollY < heroH - HEADER_HEIGHT) {
+                // We are over the image
+                const rawColor = getAverageColor(scrollY);
+                const blended = blendWithWhite(rawColor);
+                finalColor = rgbToHex(blended.r, blended.g, blended.b);
             } else {
-                // Passed the image: White content
-                // 50% White Header over White Content = White (#ffffff)
-                finalColorHex = "#ffffff";
+                // We are past the image -> Solid White
+                finalColor = "#ffffff";
             }
 
-            // 1. Update Meta Tag (For Status Bar)
-            if(metaThemeColor.getAttribute('content') !== finalColorHex) {
-                metaThemeColor.setAttribute('content', finalColorHex);
-                tintStatus.innerText = "Active: " + finalColorHex;
-                
-                // 2. Update Body Background (For Overscroll/Bounce)
-                document.body.style.backgroundColor = finalColorHex;
+            // Apply
+            if (metaThemeColor.getAttribute('content') !== finalColor) {
+                metaThemeColor.setAttribute('content', finalColor);
+                document.body.style.backgroundColor = finalColor;
             }
         }
 
-        function throttle(func, limit) {
-            let inThrottle;
-            return function() {
-                const args = arguments;
-                const context = this;
-                if (!inThrottle) {
-                    func.apply(context, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
+        // 4. Performance Throttle
+        let tick = false;
+        window.addEventListener('scroll', () => {
+            if (!tick) {
+                window.requestAnimationFrame(() => {
+                    updateThemeColor();
+                    tick = false;
+                });
+                tick = true;
             }
-        }
+        });
 
-        window.addEventListener('scroll', throttle(updateThemeColor, 50));
-        window.addEventListener('resize', throttle(initCanvas, 500));
+        window.addEventListener('resize', initCanvas);
+
     </script>
 </body>
 </html>
